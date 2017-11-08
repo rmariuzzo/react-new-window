@@ -1,0 +1,8 @@
+{
+  "name": "react-new-window",
+  "version": "0.0.1",
+  "main": "index.js",
+  "repository": "git@github.com:rmariuzzo/react-new-window.git",
+  "author": "Rubens Mariuzzo <rubens@mariuzzo.com>",
+  "license": "MIT"
+}
