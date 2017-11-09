@@ -37,7 +37,7 @@ const Demo = () => (
 )
 ```
 
-When **`<NewWindow />`** is mounted a popup window will be opened. When unounted then the popup will be closed.
+When **`<NewWindow />`** is mounted a popup window will be opened. When unmounted then the popup will be closed.
 
 The `children` contents is what will be rendered into the new popup window. In that case `Hi 👋` will be the content. The content can include any react-stateful code.
 
@@ -65,13 +65,17 @@ To start contributing to this project, please do:
  2. Do your work.
  3. Create a PR.
 
-### Releases
+## Releases
 
 To release this project the following tasks should be done:
 
  1. Build distribution files: `yarn build`
  2. Bump version and create tag: `npm version #.#.# -m 'Version %s.'`.
  3. Push new created tag: `git push origin --tags`.
+
+### Prior work
+
+ - [react-popout](https://github.com/JakeGinnivan/react-popout).
 
 ---
 
