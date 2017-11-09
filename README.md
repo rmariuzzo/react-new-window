@@ -2,7 +2,7 @@
 
 # React New Window
 
-Pop a new window React using window.open.
+Pop new windows in React, using `window.open`.
 
 Inspired by [David Gilbertson's article](https://hackernoon.com/using-a-react-16-portal-to-do-something-cool-2a2d627b0202) (must read, must follow).
 

@@ -40,6 +40,6 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production rollup -c",
     "storybook": "cross-env NODE_ENV=test start-storybook -p 6006",
-    "build-storybook": "cross-env NODE_ENV=test build-storybook"
+    "build-storybook": "cross-env NODE_ENV=test build-storybook -o docs"
   }
 }
