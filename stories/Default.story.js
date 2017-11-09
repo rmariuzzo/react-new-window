@@ -1,6 +1,8 @@
 import React from 'react'
 import { action } from '@storybook/addon-actions'
 import NewWindow from '../src/NewWindow'
+import Button from './components/Button'
+import Container from './components/Container'
 
 class DefaultStory extends React.PureComponent {
 
@@ -23,11 +25,11 @@ class DefaultStory extends React.PureComponent {
     const { opened, count } = this.state
     const now = new Date()
     return (
-      <div>
+      <Container>
         <h2>Counting { count }...</h2>
-        <button onClick={ () => this.toggleOpened() }>
+        <Button onClick={ () => this.toggleOpened() }>
           { opened ? 'Close the opened window' : 'Open a new window' }
-        </button>
+        </Button>
         { opened &&
           <NewWindow
             onUnload={ () => this.newWindowUnloaded() }
@@ -35,9 +37,10 @@ class DefaultStory extends React.PureComponent {
           >
             <h1>Hi 👋</h1>
             <h2>Counting here as well { count }...</h2>
+            <Button>Keeping the same style as my parent</Button>
           </NewWindow>
         }
-      </div>
+      </Container>
     )
   }
 

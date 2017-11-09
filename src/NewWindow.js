@@ -52,11 +52,11 @@ class NewWindow extends React.PureComponent {
     const { url, title, name, features, onBlock, onUnload, center } = this.props
 
     // Prepare position of new window to appear center against the 'parent' window or 'screen'.
-    if (typeof center === 'string' && (features.left === undefined || features.top === undefined)) {
+    if (typeof center === 'string' && (features.width === undefined || features.height === undefined)) {
       console.warn('left and top window features must be present when a center prop is provided')
     } else if (center === 'parent') {
-      features.left = window.top.outerHeight / 2 + window.top.screenY - ( h / 2)
-      features.top = window.top.outerWidth / 2 + window.top.screenX - ( w / 2)
+      features.left = window.top.outerWidth / 2 + window.top.screenX - (features.width / 2)
+      features.top = window.top.outerHeight / 2 + window.top.screenY - (features.height / 2)
     } else if (center === 'screen') {
       const screenLeft = window.screenLeft !== undefined ? window.screenLeft : screen.left;
       const screenTop = window.screenTop !== undefined ? window.screenTop : screen.top;
@@ -64,8 +64,8 @@ class NewWindow extends React.PureComponent {
       const width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
       const height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
 
-      features.left = ((width / 2) - (w / 2)) + screenLeft;
-      features.top = ((height / 2) - (h / 2)) + screenTop;
+      features.left = ((width / 2) - (features.width / 2)) + screenLeft;
+      features.top = ((height / 2) - (features.height / 2)) + screenTop;
     }
 
     // Open a new window.
