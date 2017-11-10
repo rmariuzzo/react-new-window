@@ -1,7 +1,7 @@
 {
   "name": "react-new-window",
   "description": "🔲 Pop a new window React using window.open",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "dist/react-new-window.js",
   "module": "dist/react-new-window.esm.js",
   "browser": "dist/react-new-window.umd.js",
