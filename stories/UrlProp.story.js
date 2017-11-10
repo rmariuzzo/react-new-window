@@ -3,44 +3,41 @@ import { action } from '@storybook/addon-actions'
 import NewWindow from '../src/NewWindow'
 import Button from './components/Button'
 import Container from './components/Container'
+import TextInput from './components/TextInput'
 
-class DefaultStory extends React.PureComponent {
+class UrlPropStory extends React.PureComponent {
 
   state = {
     opened: false,
-    count: 0,
+    url: 'https://github.com/rmariuzzo',
   }
 
   componentDidMount() {
-    this.interval = setInterval(() => {
-      this.setState({ count: this.state.count + 1 })
-    }, 500)
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.interval)
+    $(() => Materialize.updateTextFields())
   }
 
   render() {
-    const { opened, count } = this.state
-    const now = new Date()
+    const { opened, url } = this.state
+
     return (
       <Container>
         <h2>React New Window</h2>
-        <h3>Example</h3>
-        <h4>Counting { count }...</h4>
+        <h3>prop: url</h3>
+        <TextInput
+          label="URL"
+          name="url"
+          value={ url }
+          onChange={ (event) => this.urlChanged(event.target.value) }
+        />
         <Button onClick={ () => this.toggleOpened() }>
-          { opened ? 'Close the opened window' : 'Open a new window' }
+          { opened ? 'Close the opened window' : 'Open: ' + url }
         </Button>
         { opened &&
           <NewWindow
+            url={ url }
             onUnload={ () => this.newWindowUnloaded() }
             features={ { left: 200, top: 200, width: 400, height: 400 } }
-          >
-            <h2>Hi 👋</h2>
-            <h4>Counting here as well { count }...</h4>
-            <Button>Keeping the same style as my parent</Button>
-          </NewWindow>
+          />
         }
       </Container>
     )
@@ -55,6 +52,11 @@ class DefaultStory extends React.PureComponent {
     action('Window unloaded')()
     this.setState({ opened: false })
   }
+
+  urlChanged(url) {
+    action('URL changed')()
+    this.setState({ url })
+  }
 }
 
-export default DefaultStory
+export default UrlPropStory

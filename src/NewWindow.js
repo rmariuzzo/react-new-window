@@ -25,7 +25,8 @@ class NewWindow extends React.PureComponent {
     features: {},
     onBlock: null,
     onUnload: null,
-    center: 'parent'
+    center: 'parent',
+    copyStyles: true,
   }
 
   /**
@@ -36,6 +37,8 @@ class NewWindow extends React.PureComponent {
     super(props)
     this.container = document.createElement('div')
     this.window = null
+    this.windowCheckerInterval = null
+    this.released = false
   }
 
   /**
@@ -49,11 +52,11 @@ class NewWindow extends React.PureComponent {
    * Create the new window when NewWindow component mount.
    */
   componentDidMount() {
-    const { url, title, name, features, onBlock, onUnload, center } = this.props
+    const { url, title, name, features, onBlock, center } = this.props
 
-    // Prepare position of new window to appear center against the 'parent' window or 'screen'.
+    // Prepare position of the new window to be centered against the 'parent' window or 'screen'.
     if (typeof center === 'string' && (features.width === undefined || features.height === undefined)) {
-      console.warn('left and top window features must be present when a center prop is provided')
+      console.warn('width and height window features must be present when a center prop is provided')
     } else if (center === 'parent') {
       features.left = window.top.outerWidth / 2 + window.top.screenX - (features.width / 2)
       features.top = window.top.outerHeight / 2 + window.top.screenY - (features.height / 2)
@@ -71,18 +74,27 @@ class NewWindow extends React.PureComponent {
     // Open a new window.
     this.window = window.open(url, name, toWindowFeatures(features))
 
+    // When a new window use content from a cross-origin there's no way we can attach event
+    // to it. Therefore, we need to detect in a interval when the new window was destroyed
+    // or was closed.
+    this.windowCheckerInterval = setInterval(() => {
+      if (!this.window || this.window.closed) {
+        this.release()
+      }
+    }, 50)
+
     // Check if the new window was succesfully opened.
     if (this.window) {
       this.window.document.title = title
       this.window.document.body.appendChild(this.container)
 
-      copyStyles(document, this.window.document)
+      // If specified, copy styles from parent window's document.
+      if (this.props.copyStyles) {
+        copyStyles(document, this.window.document)
+      }
 
-      this.window.addEventListener('beforeunload', () => {
-        if (typeof onUnload === 'function') {
-          onUnload.call(null)
-        }
-      })
+      // Release anything bound to this component before the new window unload.
+      this.window.addEventListener('beforeunload', () => this.release())
     } else {
 
       // Handle error on opening of new window.
@@ -100,6 +112,27 @@ class NewWindow extends React.PureComponent {
   componentWillUnmount() {
     if (this.window) {
       this.window.close()
+    }
+  }
+
+  /**
+   * Release the new window and anything that was bound to it.
+   */
+  release() {
+    // This method can be called once.
+    if (this.released) {
+      return
+    }
+    this.released = true
+
+    // Remove checker interval.
+    clearInterval(this.windowCheckerInterval)
+
+    // Call any function bound to the `onUnload` prop.
+    const { onUnload } = this.props
+
+    if (typeof onUnload === 'function') {
+      onUnload.call(null)
     }
   }
 }
@@ -151,9 +184,14 @@ function copyStyles(source, target) {
 
 function toWindowFeatures(obj) {
   return Object.keys(obj)
-    .reduce((prev, curr) => {
-      prev.push(`${curr}=${obj[curr]}`)
-      return prev
+    .reduce((features, name) => {
+      let value = obj[name]
+      if (typeof value === 'boolean') {
+        features.push(`${name}=${value ? 'yes' : 'no'}`)
+      } else {
+        features.push(`${name}=${value}`)
+      }
+      return features
     }, [])
     .join(',')
 }
