@@ -39,19 +39,28 @@ class NewWindow extends React.PureComponent {
     this.window = null
     this.windowCheckerInterval = null
     this.released = false
+    this.state = {
+      mounted: false
+    };
   }
 
   /**
    * Render the NewWindow component.
    */
   render() {
+    if (!this.state.mounted) return null;
     return ReactDOM.createPortal(this.props.children, this.container)
+  }
+
+  componentDidMount() {
+    this.openChild();
+    this.setState({mounted: true});
   }
 
   /**
    * Create the new window when NewWindow component mount.
    */
-  componentDidMount() {
+  openChild() {
     const { url, title, name, features, onBlock, center } = this.props
 
     // Prepare position of the new window to be centered against the 'parent' window or 'screen'.
