@@ -10,14 +10,14 @@ class TitlePropStory extends React.PureComponent {
   state = {
     opened: false,
     title: 'Hello world!',
-  }
+  };
 
   componentDidMount() {
     $(() => Materialize.updateTextFields())
   }
 
   render() {
-    const { opened, title } = this.state
+    const { opened, title } = this.state;
 
     return (
       <Container>
@@ -50,17 +50,17 @@ class TitlePropStory extends React.PureComponent {
   }
 
   toggleOpened() {
-    action(this.state.opened ? 'Closing the window' : 'Opening the window')()
-    this.setState({ opened: !this.state.opened })
+    action(this.state.opened ? 'Closing the window' : 'Opening the window')();
+    this.setState(prevState => ({ opened: !prevState.opened }));
   }
 
   newWindowUnloaded() {
-    action('Window unloaded')()
+    action('Window unloaded')();
     this.setState({ opened: false })
   }
 
   titleChanged(title) {
-    action('Title changed')()
+    action('Title changed')();
     this.setState({ title })
   }
 }
