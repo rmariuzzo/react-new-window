@@ -149,17 +149,6 @@ NewWindow.propTypes = {
     copyStyles: PropTypes.bool,
 };
 
-NewWindow.defaultProps = {
-    url: '',
-    name: '',
-    title: '',
-    features: {width: '600px', height: '640px'},
-    onBlock: null,
-    onUnload: null,
-    center: 'parent',
-    copyStyles: true,
-};
-
 /**
  * Utility functions.
  * @private
