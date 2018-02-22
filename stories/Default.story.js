@@ -9,12 +9,12 @@ class DefaultStory extends React.PureComponent {
   state = {
     opened: false,
     count: 0,
-  }
+  };
 
   componentDidMount() {
     this.interval = setInterval(() => {
-      this.setState({ count: this.state.count + 1 })
-    }, 500)
+      this.setState(prevState => ({ count: prevState.count + 1 }));
+    }, 1000)
   }
 
   componentWillUnmount() {
@@ -22,8 +22,7 @@ class DefaultStory extends React.PureComponent {
   }
 
   render() {
-    const { opened, count } = this.state
-    const now = new Date()
+    const { opened, count } = this.state;
     return (
       <Container>
         <h2>React New Window</h2>
@@ -47,12 +46,12 @@ class DefaultStory extends React.PureComponent {
   }
 
   toggleOpened() {
-    action(this.state.opened ? 'Closing the window' : 'Opening the window')()
-    this.setState({ opened: !this.state.opened })
+    action(this.state.opened ? 'Closing the window' : 'Opening the window')();
+    this.setState(prevState => ({ opened: !prevState.opened }));
   }
 
   newWindowUnloaded() {
-    action('Window unloaded')()
+    action('Window unloaded')();
     this.setState({ opened: false })
   }
 }
