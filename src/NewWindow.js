@@ -7,6 +7,7 @@
 
 import React from 'react'
 import ReactDOM from 'react-dom'
+import PropTypes from 'prop-types'
 
 /**
  * The NewWindow class object.
@@ -22,7 +23,7 @@ class NewWindow extends React.PureComponent {
     url: '',
     name: '',
     title: '',
-    features: {},
+    features: { width: '600px', height: '640px' },
     onBlock: null,
     onUnload: null,
     center: 'parent',
@@ -137,6 +138,17 @@ class NewWindow extends React.PureComponent {
   }
 }
 
+NewWindow.propTypes = {
+  url: PropTypes.string,
+  name: PropTypes.string,
+  title: PropTypes.string,
+  features: PropTypes.object,
+  onUnload: PropTypes.func,
+  onBlock: PropTypes.func,
+  center: PropTypes.oneOf(['parent', 'screen']),
+  copyStyles: PropTypes.bool,
+};
+
 /**
  * Utility functions.
  * @private
@@ -153,12 +165,28 @@ function copyStyles(source, target) {
   Array.from(source.styleSheets).forEach(styleSheet => {
 
     // For <style> elements
-    if (styleSheet.cssRules) {
+    let rules;
+    try {
+      rules = styleSheet.cssRules;
+    } catch (err) {
+      console.error(err);
+    }
+    if (rules) {
       const newStyleEl = source.createElement('style')
 
       // Write the text of each rule into the body of the style element
       Array.from(styleSheet.cssRules).forEach(cssRule => {
-        newStyleEl.appendChild(source.createTextNode(cssRule.cssText))
+        const { cssText, type } = cssRule;
+        let returnText = cssText;
+        if ([3, 5].includes(type)) {
+          returnText = cssText.split('url(').map(line => {
+            if (line[1] === '/') {
+              return `${line.slice(0, 1)}${window.location.origin}${line.slice(1)}`
+            }
+            return line
+          }).join('url(')
+        }
+        newStyleEl.appendChild(source.createTextNode(returnText))
       })
 
       target.head.appendChild(newStyleEl)

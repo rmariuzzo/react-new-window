@@ -51,7 +51,7 @@ class TitlePropStory extends React.PureComponent {
 
   toggleOpened() {
     action(this.state.opened ? 'Closing the window' : 'Opening the window')()
-    this.setState({ opened: !this.state.opened })
+    this.setState(prevState => ({ opened: !prevState.opened }))
   }
 
   newWindowUnloaded() {
