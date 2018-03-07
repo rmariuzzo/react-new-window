@@ -91,7 +91,7 @@ class NewWindow extends React.PureComponent {
 
       // If specified, copy styles from parent window's document.
       if (this.props.copyStyles) {
-        copyStyles(document, this.window.document)
+        setTimeout(() => copyStyles(document, this.window.document), 0)
       }
 
       // Release anything bound to this component before the new window unload.
