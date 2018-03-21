@@ -10,16 +10,16 @@ export default [
   {
     input: 'src/NewWindow.js',
     external: ['react', 'react-dom'],
-    globals: {
-      'react': 'React',
-      'react-dom': 'ReactDOM'
-    },
     output: {
+      name: 'ReactNewWindow',
       file: pkg.browser,
       format: 'umd',
       sourcemap: true,
+      globals: {
+        'react': 'React',
+        'react-dom': 'ReactDOM'
+      },
     },
-    name: 'ReactNewWindow',
     plugins: [
       babel(),
       uglify({}, minify),
