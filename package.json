@@ -27,6 +27,7 @@
     "@storybook/addon-links": "^3.2.14",
     "@storybook/react": "^3.2.14",
     "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.2",
     "babel-jest": "^21.2.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
@@ -34,8 +35,12 @@
     "babel-preset-es2015-rollup": "^3.0.0",
     "babel-preset-react": "^6.24.1",
     "cross-env": "^5.1.1",
+    "eslint": "^4.19.1",
+    "eslint-plugin-prettier": "^2.6.0",
+    "eslint-plugin-react": "^7.7.0",
     "jest": "^22.4.2",
     "np": "^2.20.1",
+    "prettier": "^1.11.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-test-renderer": "^16.0.0",
@@ -56,6 +61,7 @@
     "build": "cross-env NODE_ENV=production rollup -c",
     "release": "np",
     "prerelease": "npm run build",
+    "lint": "eslint ./src",
     "storybook": "cross-env NODE_ENV=test start-storybook -p 6006",
     "build-storybook": "cross-env NODE_ENV=test build-storybook -o docs"
   }

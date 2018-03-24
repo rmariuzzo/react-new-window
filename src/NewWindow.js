@@ -1,5 +1,3 @@
-'use strict'
-
 /**
  * Component dependencies.
  * @private
@@ -15,7 +13,6 @@ import PropTypes from 'prop-types'
  */
 
 class NewWindow extends React.PureComponent {
-
   /**
    * NewWindow default props.
    */
@@ -27,7 +24,7 @@ class NewWindow extends React.PureComponent {
     onBlock: null,
     onUnload: null,
     center: 'parent',
-    copyStyles: true,
+    copyStyles: true
   }
 
   /**
@@ -56,20 +53,37 @@ class NewWindow extends React.PureComponent {
     const { url, title, name, features, onBlock, center } = this.props
 
     // Prepare position of the new window to be centered against the 'parent' window or 'screen'.
-    if (typeof center === 'string' && (features.width === undefined || features.height === undefined)) {
-      console.warn('width and height window features must be present when a center prop is provided')
+    if (
+      typeof center === 'string' &&
+      (features.width === undefined || features.height === undefined)
+    ) {
+      console.warn(
+        'width and height window features must be present when a center prop is provided'
+      )
     } else if (center === 'parent') {
-      features.left = window.top.outerWidth / 2 + window.top.screenX - (features.width / 2)
-      features.top = window.top.outerHeight / 2 + window.top.screenY - (features.height / 2)
+      features.left =
+        window.top.outerWidth / 2 + window.top.screenX - features.width / 2
+      features.top =
+        window.top.outerHeight / 2 + window.top.screenY - features.height / 2
     } else if (center === 'screen') {
-      const screenLeft = window.screenLeft !== undefined ? window.screenLeft : screen.left;
-      const screenTop = window.screenTop !== undefined ? window.screenTop : screen.top;
+      const screenLeft =
+        window.screenLeft !== undefined ? window.screenLeft : screen.left
+      const screenTop =
+        window.screenTop !== undefined ? window.screenTop : screen.top
 
-      const width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
-      const height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
+      const width = window.innerWidth
+        ? window.innerWidth
+        : document.documentElement.clientWidth
+          ? document.documentElement.clientWidth
+          : screen.width
+      const height = window.innerHeight
+        ? window.innerHeight
+        : document.documentElement.clientHeight
+          ? document.documentElement.clientHeight
+          : screen.height
 
-      features.left = ((width / 2) - (features.width / 2)) + screenLeft;
-      features.top = ((height / 2) - (features.height / 2)) + screenTop;
+      features.left = width / 2 - features.width / 2 + screenLeft
+      features.top = height / 2 - features.height / 2 + screenTop
     }
 
     // Open a new window.
@@ -97,7 +111,6 @@ class NewWindow extends React.PureComponent {
       // Release anything bound to this component before the new window unload.
       this.window.addEventListener('beforeunload', () => this.release())
     } else {
-
       // Handle error on opening of new window.
       if (typeof onBlock === 'function') {
         onBlock.call(null)
@@ -139,6 +152,7 @@ class NewWindow extends React.PureComponent {
 }
 
 NewWindow.propTypes = {
+  children: PropTypes.node,
   url: PropTypes.string,
   name: PropTypes.string,
   title: PropTypes.string,
@@ -146,8 +160,8 @@ NewWindow.propTypes = {
   onUnload: PropTypes.func,
   onBlock: PropTypes.func,
   center: PropTypes.oneOf(['parent', 'screen']),
-  copyStyles: PropTypes.bool,
-};
+  copyStyles: PropTypes.bool
+}
 
 /**
  * Utility functions.
@@ -163,39 +177,41 @@ NewWindow.propTypes = {
 
 function copyStyles(source, target) {
   Array.from(source.styleSheets).forEach(styleSheet => {
-
     // For <style> elements
-    let rules;
+    let rules
     try {
-      rules = styleSheet.cssRules;
+      rules = styleSheet.cssRules
     } catch (err) {
-      console.error(err);
+      console.error(err)
     }
     if (rules) {
       const newStyleEl = source.createElement('style')
 
       // Write the text of each rule into the body of the style element
       Array.from(styleSheet.cssRules).forEach(cssRule => {
-        const { cssText, type } = cssRule;
-        let returnText = cssText;
+        const { cssText, type } = cssRule
+        let returnText = cssText
         // Check if the cssRule type is CSSImportRule (3) or CSSFontFaceRule (5) to handle local imports on a about:blank page
         // '/custom.css' turns to 'http://my-site.com/custom.css'
         if ([3, 5].includes(type)) {
-          returnText = cssText.split('url(').map(line => {
-            if (line[1] === '/') {
-              return `${line.slice(0, 1)}${window.location.origin}${line.slice(1)}`
-            }
-            return line
-          }).join('url(')
+          returnText = cssText
+            .split('url(')
+            .map(line => {
+              if (line[1] === '/') {
+                return `${line.slice(0, 1)}${
+                  window.location.origin
+                }${line.slice(1)}`
+              }
+              return line
+            })
+            .join('url(')
         }
         newStyleEl.appendChild(source.createTextNode(returnText))
       })
 
       target.head.appendChild(newStyleEl)
-    }
-
-    // for <link> elements loading CSS from a URL
-    else if (styleSheet.href) {
+    } else if (styleSheet.href) {
+      // for <link> elements loading CSS from a URL
       const newLinkEl = source.createElement('link')
 
       newLinkEl.rel = 'stylesheet'
@@ -215,7 +231,7 @@ function copyStyles(source, target) {
 function toWindowFeatures(obj) {
   return Object.keys(obj)
     .reduce((features, name) => {
-      let value = obj[name]
+      const value = obj[name]
       if (typeof value === 'boolean') {
         features.push(`${name}=${value ? 'yes' : 'no'}`)
       } else {
