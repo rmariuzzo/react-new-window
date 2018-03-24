@@ -54,6 +54,8 @@
   },
   "scripts": {
     "build": "cross-env NODE_ENV=production rollup -c",
+    "release": "np",
+    "prerelease": "npm run build",
     "storybook": "cross-env NODE_ENV=test start-storybook -p 6006",
     "build-storybook": "cross-env NODE_ENV=test build-storybook -o docs"
   }
