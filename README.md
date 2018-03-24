@@ -10,7 +10,7 @@ Inspired by [David Gilbertson's article](https://hackernoon.com/using-a-react-16
 
 ## Features
 
- - **Only 3.7KB** (that's 1.6KB gzipped!).
+ - **Only 2.68KB** (gzipped!).
  - **Support the full `window.open` api**.
  - **Built for React 16** (uses `ReactDOM.createPortal`).
  - **Handler for blocked popups** (via `onBlock` prop).
