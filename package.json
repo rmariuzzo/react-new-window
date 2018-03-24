@@ -1,7 +1,7 @@
 {
   "name": "react-new-window",
   "description": "🔲 Pop a new window React using window.open",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "dist/react-new-window.js",
   "module": "dist/react-new-window.esm.js",
   "browser": "dist/react-new-window.umd.js",
@@ -23,16 +23,16 @@
     "babel-preset-es2015-rollup": "^3.0.0",
     "babel-preset-react": "^6.24.1",
     "cross-env": "^5.1.1",
-    "jest": "^21.2.1",
+    "jest": "^22.4.2",
     "prop-types": "^15.6.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-test-renderer": "^16.0.0",
-    "rollup": "^0.51.1",
+    "rollup": "^0.57.1",
     "rollup-plugin-babel": "^3.0.2",
     "rollup-plugin-filesize": "^1.4.2",
-    "rollup-plugin-uglify": "^2.0.1",
-    "uglify-es": "^3.1.6"
+    "rollup-plugin-uglify": "^3.0.0",
+    "uglify-es": "^3.3.10"
   },
   "peerDependencies": {
     "react": "^16.0.0",
