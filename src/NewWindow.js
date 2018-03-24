@@ -178,6 +178,8 @@ function copyStyles(source, target) {
       Array.from(styleSheet.cssRules).forEach(cssRule => {
         const { cssText, type } = cssRule;
         let returnText = cssText;
+        // Check if the cssRule type is CSSImportRule (3) or CSSFontFaceRule (5) to handle local imports on a about:blank page
+        // '/custom.css' turns to 'http://my-site.com/custom.css'
         if ([3, 5].includes(type)) {
           returnText = cssText.split('url(').map(line => {
             if (line[1] === '/') {
