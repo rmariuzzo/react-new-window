@@ -39,20 +39,20 @@ class NewWindow extends React.PureComponent {
     this.released = false
     this.state = {
       mounted: false
-    };
+    }
   }
 
   /**
    * Render the NewWindow component.
    */
   render() {
-    if (!this.state.mounted) return null;
+    if (!this.state.mounted) return null
     return ReactDOM.createPortal(this.props.children, this.container)
   }
 
   componentDidMount() {
-    this.openChild();
-    this.setState({mounted: true});
+    this.openChild()
+    this.setState({ mounted: true })
   }
 
   /**
