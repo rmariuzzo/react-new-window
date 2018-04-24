@@ -8,7 +8,7 @@
     "open",
     "popup"
   ],
-  "main": "src/react-new-window.js",
+  "main": "umd/react-new-window.js",
   "module": "es/react-new-window.js",
   "browser": "umd/react-new-window.js",
   "repository": "git@github.com:rmariuzzo/react-new-window.git",
