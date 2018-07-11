@@ -53,6 +53,7 @@ The `children` contents is what will be rendered into the new popup window. In t
  | `onBlock`  | `Function` | `undefined`   | A function to be triggered when the new window could not be opened. |
  | `center`   | `String`   | `parent`      | Indicate how to center the new window. Valid values are: `parent` or `screen`. `parent` will center the new window according to its _parent_ window. `screen` will center the new window according to the _screen_. |
  | `copyStyles`  | `Boolean` | `true`   | If specified, copy styles from parent window's document. |
+ | `isPrintable`  | `Boolean` | `false`   | If specified, open new window's in print mode. |
 
 ## Tests
 

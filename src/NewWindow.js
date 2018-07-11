@@ -24,7 +24,8 @@ class NewWindow extends React.PureComponent {
     onBlock: null,
     onUnload: null,
     center: 'parent',
-    copyStyles: true
+    copyStyles: true,
+    isPrintable: false
   }
 
   /**
@@ -117,6 +118,11 @@ class NewWindow extends React.PureComponent {
         setTimeout(() => copyStyles(document, this.window.document), 0)
       }
 
+      // If specified, open new window's in print mode.
+      if (this.props.isPrintable) {
+        this.window.window.print()
+      }
+
       // Release anything bound to this component before the new window unload.
       this.window.addEventListener('beforeunload', () => this.release())
     } else {
@@ -169,7 +175,8 @@ NewWindow.propTypes = {
   onUnload: PropTypes.func,
   onBlock: PropTypes.func,
   center: PropTypes.oneOf(['parent', 'screen']),
-  copyStyles: PropTypes.bool
+  copyStyles: PropTypes.bool,
+  isPrintable: PropTypes.bool
 }
 
 /**
