@@ -57,6 +57,11 @@ declare export interface INewWindowProps {
      * If specified, copy styles from parent window's document.
      */
     copyStyles?: boolean
+
+    /**
+     * If specified, open new window's in print mode.
+     */
+    isPrintable?: boolean
 }
 
 declare export default class NewWindow extends React.PureComponent {
