@@ -17,7 +17,6 @@ class TextBoxStory extends React.PureComponent {
 
   render() {
     const { opened, text } = this.state
-    const now = new Date()
     return (
       <Container>
         <h2>React TextBox</h2>
