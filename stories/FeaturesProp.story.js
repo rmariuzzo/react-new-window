@@ -11,7 +11,6 @@ class FeaturesPropStory extends React.PureComponent {
 
   state = {
     opened: false,
-    title: 'Hello world!',
     features: {
       width: 400,
       height: 150,
