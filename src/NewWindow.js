@@ -34,7 +34,7 @@ class NewWindow extends React.PureComponent {
    */
   constructor(props) {
     super(props)
-    this.container = document.createElement('div')
+    this.container = null
     this.window = null
     this.windowCheckerInterval = null
     this.released = false
@@ -98,7 +98,7 @@ class NewWindow extends React.PureComponent {
 
     // Open a new window.
     this.window = window.open(url, name, toWindowFeatures(features))
-
+    this.container = this.window.document.createElement('div')
     // When a new window use content from a cross-origin there's no way we can attach event
     // to it. Therefore, we need to detect in a interval when the new window was destroyed
     // or was closed.
@@ -200,7 +200,7 @@ function copyStyles(source, target) {
       console.error(err)
     }
     if (rules) {
-      const newStyleEl = source.createElement('style')
+      const newStyleEl = target.createElement('style')
 
       // Write the text of each rule into the body of the style element
       Array.from(styleSheet.cssRules).forEach(cssRule => {
@@ -221,13 +221,13 @@ function copyStyles(source, target) {
             })
             .join('url(')
         }
-        newStyleEl.appendChild(source.createTextNode(returnText))
+        newStyleEl.appendChild(target.createTextNode(returnText))
       })
 
       target.head.appendChild(newStyleEl)
     } else if (styleSheet.href) {
       // for <link> elements loading CSS from a URL
-      const newLinkEl = source.createElement('link')
+      const newLinkEl = target.createElement('link')
 
       newLinkEl.rel = 'stylesheet'
       newLinkEl.href = styleSheet.href
