@@ -23,7 +23,7 @@ class NewWindow extends React.PureComponent {
     features: { width: '600px', height: '640px' },
     onBlock: null,
     onUnload: null,
-	callback: null,
+    callback: null,
     center: 'parent',
     copyStyles: true
   }
@@ -97,9 +97,9 @@ class NewWindow extends React.PureComponent {
     }
 
     // Open a new window.
-    this.window = window.open(url, name, toWindowFeatures(features));
-	if (callback) {
-      callback(this.window);
+    this.window = window.open(url, name, toWindowFeatures(features))
+    if (callback) {
+      callback(this.window)
     }
 
     // When a new window use content from a cross-origin there's no way we can attach event
