@@ -8,7 +8,7 @@ Inspired by [David Gilbertson's article](https://hackernoon.com/using-a-react-16
 
 </div>
 
-## Features
+## (Original)Features
 
  - **Only 2.68KB** (gzipped!).
  - **Support the full `window.open` api**.
@@ -51,6 +51,7 @@ The `children` contents is what will be rendered into the new popup window. In t
  | `features` | `Object`   | `{}`          | The set of window features ([more details on `windowFeatures`](https://developer.mozilla.org/en-US/docs/Web/API/Window/open#Window_features)). |
  | `onUnload` | `Function` | `undefined`   | A function to be triggered before the new window unload. |
  | `onBlock`  | `Function` | `undefined`   | A function to be triggered when the new window could not be opened. |
+ | `callback` | `Function` | `undefined`   | A function that when supplied, returns a reference to new window to the caller. |
  | `center`   | `String`   | `parent`      | Indicate how to center the new window. Valid values are: `parent` or `screen`. `parent` will center the new window according to its _parent_ window. `screen` will center the new window according to the _screen_. |
  | `copyStyles`  | `Boolean` | `true`   | If specified, copy styles from parent window's document. |
 
