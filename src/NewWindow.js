@@ -23,6 +23,7 @@ class NewWindow extends React.PureComponent {
     features: { width: '600px', height: '640px' },
     onBlock: null,
     onUnload: null,
+	callback: null,
     center: 'parent',
     copyStyles: true
   }
@@ -59,7 +60,7 @@ class NewWindow extends React.PureComponent {
    * Create the new window when NewWindow component mount.
    */
   openChild() {
-    const { url, title, name, features, onBlock, center } = this.props
+    const { url, title, name, features, onBlock, center, callback } = this.props
 
     // Prepare position of the new window to be centered against the 'parent' window or 'screen'.
     if (
@@ -96,7 +97,10 @@ class NewWindow extends React.PureComponent {
     }
 
     // Open a new window.
-    this.window = window.open(url, name, toWindowFeatures(features))
+    this.window = window.open(url, name, toWindowFeatures(features));
+	if (callback) {
+      callback(this.window);
+    }
 
     // When a new window use content from a cross-origin there's no way we can attach event
     // to it. Therefore, we need to detect in a interval when the new window was destroyed
@@ -168,6 +172,7 @@ NewWindow.propTypes = {
   features: PropTypes.object,
   onUnload: PropTypes.func,
   onBlock: PropTypes.func,
+  callback: PropTypes.func,
   center: PropTypes.oneOf(['parent', 'screen']),
   copyStyles: PropTypes.bool
 }
