@@ -5,7 +5,7 @@ import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
 import filesize from 'rollup-plugin-filesize'
 import { minify } from 'uglify-es'
-import pkg from './package.json';
+import pkg from './package.json'
 
 const plugins = [
   babel({ exclude: ['node_modules/**'] }),
@@ -13,11 +13,10 @@ const plugins = [
   commonjs(),
   replace({ 'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV) }),
   uglify({}, minify),
-  filesize(),
+  filesize()
 ]
 
 export default [
-
   // browser-friendly UMD build
   {
     input: 'src/NewWindow.js',
@@ -27,9 +26,9 @@ export default [
       format: 'umd',
       sourcemap: true,
       globals: {
-        'react': 'React',
+        react: 'React',
         'react-dom': 'ReactDOM'
-      },
+      }
     },
     external: ['react', 'react-dom'],
     plugins
@@ -46,4 +45,4 @@ export default [
     external: ['react', 'react-dom'],
     plugins
   }
-];
+]
