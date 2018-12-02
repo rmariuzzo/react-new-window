@@ -98,7 +98,7 @@ class NewWindow extends React.PureComponent {
 
     // Open a new window.
     this.window = window.open(url, name, toWindowFeatures(features))
-    if (callback) {
+    if (typeof callback === 'function') {
       callback(this.window)
     }
 
