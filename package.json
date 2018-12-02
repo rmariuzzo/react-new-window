@@ -19,6 +19,7 @@
     "es",
     "umd"
   ],
+  "types": "./src/NewWindow.d.ts",
   "dependencies": {
     "prop-types": "^15.6.1"
   },
