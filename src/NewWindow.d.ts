@@ -59,7 +59,7 @@ declare export interface INewWindowProps {
     copyStyles?: boolean
 }
 
-declare export default class NewWindow extends React.PureComponent {
+declare export default class NewWindow extends React.PureComponent<INewWindowProps> {
     private readonly container: HTMLDivElement
     private window: Window | null
     private windowCheckerInterval: number | null
