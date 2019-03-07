@@ -13,6 +13,14 @@ export interface IWindowFeatures {
 }
 
 /**
+ * Represents a script tag in the head
+ */
+export interface IScript {
+    src: string
+    code: string
+}
+
+/**
  * Props for opening a new window.
  * 
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/open
@@ -57,6 +65,16 @@ declare export interface INewWindowProps {
      * If specified, copy styles from parent window's document.
      */
     copyStyles?: boolean
+
+    /**
+     * If specified, add script elements to the head
+     */
+    scripts?: Array<IScript>
+
+    /**
+     * If specified, add meta elements to the head
+     */
+    metas?: Array<Object>
 }
 
 declare export default class NewWindow extends React.PureComponent<INewWindowProps> {

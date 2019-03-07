@@ -117,6 +117,22 @@ class NewWindow extends React.PureComponent {
         setTimeout(() => copyStyles(document, this.window.document), 0)
       }
 
+      // If specified, add script elements
+      if (this.props.scripts) {
+        const popupDocument = this.window.document;
+        this.props.scripts.forEach(function(script) {
+          addScript(popupDocument, script);
+        });
+      }
+  
+      // If specified, add meta elements
+      if (this.props.metas) {
+        const popupDocument = this.window.document;
+        this.props.metas.forEach(function(meta) {
+          addMeta(popupDocument, meta);
+        });
+      }
+
       // Release anything bound to this component before the new window unload.
       this.window.addEventListener('beforeunload', () => this.release())
     } else {
@@ -169,7 +185,9 @@ NewWindow.propTypes = {
   onUnload: PropTypes.func,
   onBlock: PropTypes.func,
   center: PropTypes.oneOf(['parent', 'screen']),
-  copyStyles: PropTypes.bool
+  copyStyles: PropTypes.bool,
+  scripts: PropTypes.array,
+  metas: PropTypes.array
 }
 
 /**
@@ -249,6 +267,42 @@ function toWindowFeatures(obj) {
       return features
     }, [])
     .join(',')
+}
+
+/**
+ * Add a new script element to the head
+ * @private
+ */
+function addScript(document, scriptObject) {
+  const script = document.createElement("script");
+  script.type = "text/javascript";
+
+  if (scriptObject.src) {
+    script.src = scriptObject.src;
+  }
+
+  if (scriptObject.code) {
+    script.text = scriptObject.code;
+  }
+
+  document.head.appendChild(script);
+}
+
+/**
+ * Add a new meta element to the head
+ * @private
+ */
+function addMeta(document, metaObject) {
+  let meta = document.createElement("meta");
+
+  for (const key in metaObject) {
+    if (metaObject.hasOwnProperty(key)) {
+      //Not a property from prototype chain
+      meta.setAttribute(key, metaObject[key]);
+    }
+  }
+
+  document.head.appendChild(meta);
 }
 
 /**
