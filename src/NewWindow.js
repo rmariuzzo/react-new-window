@@ -124,7 +124,7 @@ class NewWindow extends React.PureComponent {
           addScript(popupDocument, script)
         })
       }
-      
+
       // If specified, add meta elements
       if (this.props.metas) {
         const popupDocument = this.window.document
