@@ -53,6 +53,50 @@ The `children` contents is what will be rendered into the new popup window. In t
  | `onBlock`  | `Function` | `undefined`   | A function to be triggered when the new window could not be opened. |
  | `center`   | `String`   | `parent`      | Indicate how to center the new window. Valid values are: `parent` or `screen`. `parent` will center the new window according to its _parent_ window. `screen` will center the new window according to the _screen_. |
  | `copyStyles`  | `Boolean` | `true`   | If specified, copy styles from parent window's document. |
+ | `scripts`  | `Array` | ` `   | If specified, add script elements to the head of new window's document. |
+ | `metas`  | `Array` | ` `   | If specified, add meta elements to the head of new window's document. |
+
+### Property `scripts`
+
+Pass the following data to `<NewWindow scripts={scripts}>`
+
+````javascript
+[
+  {
+    src: "http://www.example.com/example.js"
+  },
+  {
+    code: "console.log('This is an example')"
+  }
+];
+````
+
+will generate the following script tags:
+
+````javascript
+<script type="text/javascript" src="http://www.example.com/example.js"></script>
+<script type="text/javascript">console.log('This is an example')</script>
+````
+
+### Property `metas`
+
+Pass the following data to `<NewWindow metas={metas}>`
+
+
+````javascript
+[
+  {
+    charset: "UTF-8",
+    content: "IE=edge"
+  }
+];
+````
+
+will generate the following script tags:
+
+````javascript
+<meta charset="UTF-8" content="IE=edge">
+````
 
 ## Tests
 
