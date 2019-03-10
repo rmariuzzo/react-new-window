@@ -274,8 +274,8 @@ function toWindowFeatures(obj) {
  * @private
  */
 function addScript(document, scriptObject) {
-  const script = document.createElement("script");
-  script.type = "text/javascript";
+  const script = document.createElement('script');
+  script.type = 'text/javascript';
 
   if (scriptObject.src) {
     script.src = scriptObject.src;
@@ -293,7 +293,7 @@ function addScript(document, scriptObject) {
  * @private
  */
 function addMeta(document, metaObject) {
-  let meta = document.createElement("meta");
+  let meta = document.createElement('meta');
 
   for (const key in metaObject) {
     if (metaObject.hasOwnProperty(key)) {
