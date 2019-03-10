@@ -119,17 +119,17 @@ class NewWindow extends React.PureComponent {
 
       // If specified, add script elements
       if (this.props.scripts) {
-        const popupDocument = this.window.document;
+        const popupDocument = this.window.document
         this.props.scripts.forEach(function(script) {
-          addScript(popupDocument, script);
+          addScript(popupDocument, script)
         });
       }
   
       // If specified, add meta elements
       if (this.props.metas) {
-        const popupDocument = this.window.document;
+        const popupDocument = this.window.document
         this.props.metas.forEach(function(meta) {
-          addMeta(popupDocument, meta);
+          addMeta(popupDocument, meta)
         });
       }
 
@@ -274,18 +274,18 @@ function toWindowFeatures(obj) {
  * @private
  */
 function addScript(document, scriptObject) {
-  const script = document.createElement('script');
-  script.type = 'text/javascript';
+  const script = document.createElement('script')
+  script.type = 'text/javascript'
 
   if (scriptObject.src) {
-    script.src = scriptObject.src;
+    script.src = scriptObject.src
   }
 
   if (scriptObject.code) {
-    script.text = scriptObject.code;
+    script.text = scriptObject.code
   }
 
-  document.head.appendChild(script);
+  document.head.appendChild(script)
 }
 
 /**
@@ -293,16 +293,16 @@ function addScript(document, scriptObject) {
  * @private
  */
 function addMeta(document, metaObject) {
-  let meta = document.createElement('meta');
+  let meta = document.createElement('meta')
 
   for (const key in metaObject) {
     if (metaObject.hasOwnProperty(key)) {
       //Not a property from prototype chain
-      meta.setAttribute(key, metaObject[key]);
+      meta.setAttribute(key, metaObject[key])
     }
   }
 
-  document.head.appendChild(meta);
+  document.head.appendChild(meta)
 }
 
 /**
