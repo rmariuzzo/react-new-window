@@ -122,15 +122,15 @@ class NewWindow extends React.PureComponent {
         const popupDocument = this.window.document
         this.props.scripts.forEach(function(script) {
           addScript(popupDocument, script)
-        });
+        })
       }
-  
+      
       // If specified, add meta elements
       if (this.props.metas) {
         const popupDocument = this.window.document
         this.props.metas.forEach(function(meta) {
           addMeta(popupDocument, meta)
-        });
+        })
       }
 
       // Release anything bound to this component before the new window unload.
