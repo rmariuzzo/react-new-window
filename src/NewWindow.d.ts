@@ -1,23 +1,26 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-/**
- * Base features common to all window features.
- * 
- * @remarks These will be concatenated into a string for window.open.
- */
-export interface IWindowFeatures {
+declare module 'react-new-window' {
+  type EventHandler = () => void
+
+  /**
+   * Base features common to all window features.
+   *
+   * @remarks These will be concatenated into a string for window.open.
+   */
+  export interface IWindowFeatures {
     height: number
     width: number
     [i: string]: boolean | number | string
-}
+  }
 
-/**
- * Props for opening a new window.
- * 
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/open
- */
-declare export interface INewWindowProps {
+  /**
+   * Props for opening a new window.
+   *
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/open
+   */
+  export interface INewWindowProps {
     /**
      * The URL to open, if specified any children will be overriden.
      */
@@ -41,12 +44,12 @@ declare export interface INewWindowProps {
     /**
      * A function to be triggered before the new window unload.
      */
-    onBlock?: IOnBlock | null
+    onBlock?: EventHandler | null
 
     /**
      * A function to be triggered when the new window could not be opened.
      */
-    onUnload?: IOnUnload | null
+    onUnload?: EventHandler | null
 
     /**
      * Indicate how to center the new window.
@@ -57,9 +60,9 @@ declare export interface INewWindowProps {
      * If specified, copy styles from parent window's document.
      */
     copyStyles?: boolean
-}
+  }
 
-declare export default class NewWindow extends React.PureComponent<INewWindowProps> {
+  export default class NewWindow extends React.PureComponent<INewWindowProps> {
     private readonly container: HTMLDivElement
     private window: Window | null
     private windowCheckerInterval: number | null
@@ -69,4 +72,5 @@ declare export default class NewWindow extends React.PureComponent<INewWindowPro
      * Release the new window and anything that was bound to it.
      */
     public release(): void
+  }
 }
