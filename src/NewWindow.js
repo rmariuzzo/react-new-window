@@ -109,7 +109,7 @@ class NewWindow extends React.PureComponent {
 
     // Check if the new window was succesfully opened.
     if (this.window) {
-      this.window.addEventListener('onload', () => {
+      const onload = () => {
         this.window.document.title = title
         this.window.document.body.appendChild(this.container)
 
@@ -120,7 +120,13 @@ class NewWindow extends React.PureComponent {
 
         // Release anything bound to this component before the new window unload.
         this.window.addEventListener('beforeunload', () => this.release())
-      })
+      }
+
+      if (url) {
+        this.window.addEventListener('load', onload)
+      } else {
+        onload()
+      }
     } else {
       // Handle error on opening of new window.
       if (typeof onBlock === 'function') {
