@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 
 declare module 'react-new-window' {
   type EventHandler = () => void
+  type OpenEventHandler = (window: Window) => void
 
   /**
    * Base features common to all window features.
@@ -50,6 +51,11 @@ declare module 'react-new-window' {
      * A function to be triggered when the new window could not be opened.
      */
     onUnload?: EventHandler | null
+
+    /**
+     * A function to be triggered when the new window opened.
+     */
+    onOpen?: OpenEventHandler | null
 
     /**
      * Indicate how to center the new window.
