@@ -109,16 +109,24 @@ class NewWindow extends React.PureComponent {
 
     // Check if the new window was succesfully opened.
     if (this.window) {
-      this.window.document.title = title
-      this.window.document.body.appendChild(this.container)
+      const onload = () => {
+        this.window.document.title = title
+        this.window.document.body.appendChild(this.container)
 
-      // If specified, copy styles from parent window's document.
-      if (this.props.copyStyles) {
-        setTimeout(() => copyStyles(document, this.window.document), 0)
+        // If specified, copy styles from parent window's document.
+        if (this.props.copyStyles) {
+          setTimeout(() => copyStyles(document, this.window.document), 0)
+        }
+
+        // Release anything bound to this component before the new window unload.
+        this.window.addEventListener('beforeunload', () => this.release())
       }
 
-      // Release anything bound to this component before the new window unload.
-      this.window.addEventListener('beforeunload', () => this.release())
+      if (url) {
+        this.window.addEventListener('load', onload)
+      } else {
+        onload()
+      }
     } else {
       // Handle error on opening of new window.
       if (typeof onBlock === 'function') {
