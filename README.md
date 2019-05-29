@@ -68,13 +68,7 @@ To start contributing to this project, please do:
 
 ## Releases
 
-To release this project the following tasks should be done:
-
- 1. Build distribution files: `yarn build`.
- 2. Build Storybook demo files: `yarn build-storybook`.
- 3. Bump version and create tag: `npm version #.#.# -m 'Version %s.'`.
- 4. Push new created tag: `git push origin --tags`.
- 5. Publish: `npm publish`.
+`npm run release`
 
 ### Prior work
 
