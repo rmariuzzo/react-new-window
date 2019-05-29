@@ -8,7 +8,7 @@ import { minify } from 'uglify-es'
 import pkg from './package.json'
 
 const plugins = [
-  babel({ exclude: ['node_modules/**'] }),
+  babel({ exclude: ['node_modules/**'], runtimeHelpers: true }),
   resolve(),
   commonjs(),
   replace({ 'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV) }),

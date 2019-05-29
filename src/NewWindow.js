@@ -83,13 +83,13 @@ class NewWindow extends React.PureComponent {
       const width = window.innerWidth
         ? window.innerWidth
         : document.documentElement.clientWidth
-          ? document.documentElement.clientWidth
-          : window.screen.width
+        ? document.documentElement.clientWidth
+        : window.screen.width
       const height = window.innerHeight
         ? window.innerHeight
         : document.documentElement.clientHeight
-          ? document.documentElement.clientHeight
-          : window.screen.height
+        ? document.documentElement.clientHeight
+        : window.screen.height
 
       features.left = width / 2 - features.width / 2 + screenLeft
       features.top = height / 2 - features.height / 2 + screenTop
