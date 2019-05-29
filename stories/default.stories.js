@@ -3,6 +3,9 @@ import { action } from '@storybook/addon-actions'
 import NewWindow from '../src/NewWindow'
 import Button from './components/Button'
 import Container from './components/Container'
+import { storiesOf } from '@storybook/react';
+
+const stories = storiesOf('react-new-window', module)
 
 class DefaultStory extends React.PureComponent {
 
@@ -56,4 +59,4 @@ class DefaultStory extends React.PureComponent {
   }
 }
 
-export default DefaultStory
+stories.add('Default', () => <DefaultStory />)

@@ -3,6 +3,9 @@ import { action } from '@storybook/addon-actions'
 import NewWindow from '../src/NewWindow'
 import Button from './components/Button'
 import Container from './components/Container'
+import { storiesOf } from '@storybook/react';
+
+const stories = storiesOf('react-new-window', module)
 
 class TextBoxStory extends React.PureComponent {
 
@@ -53,4 +56,4 @@ class TextBoxStory extends React.PureComponent {
   }
 }
 
-export default TextBoxStory
+stories.add('Text box', () => <TextBoxStory />)

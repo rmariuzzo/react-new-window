@@ -6,6 +6,9 @@ import Row from './components/Row'
 import Button from './components/Button'
 import Container from './components/Container'
 import TextInput from './components/TextInput'
+import { storiesOf } from '@storybook/react';
+
+const stories = storiesOf('react-new-window', module)
 
 class FeaturesPropStory extends React.PureComponent {
 
@@ -123,4 +126,4 @@ class FeaturesPropStory extends React.PureComponent {
   }
 }
 
-export default FeaturesPropStory
+stories.add('Feature prop', () => <FeaturesPropStory />)
