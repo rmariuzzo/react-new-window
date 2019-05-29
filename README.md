@@ -18,11 +18,9 @@ Inspired by [David Gilbertson's article](https://hackernoon.com/using-a-react-16
 
 ## Installation
 
-  - `npm install react-new-window --save`
-
-    or 
-
-  - `yarn add react-new-window`
+```shell
+npm i react-new-window --save
+```
 
 ## Usage
 
