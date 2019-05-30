@@ -119,7 +119,7 @@ class NewWindow extends React.PureComponent {
       }
 
       if (typeof onOpen === 'function') {
-        onOpen.call(null, this.window)
+        onOpen(this.window)
       }
 
       // Release anything bound to this component before the new window unload.
