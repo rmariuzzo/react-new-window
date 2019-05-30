@@ -76,9 +76,9 @@ class NewWindow extends React.PureComponent {
         window.top.outerHeight / 2 + window.top.screenY - features.height / 2
     } else if (center === 'screen') {
       const screenLeft =
-        window.screenLeft !== undefined ? window.screenLeft : screen.left
+        window.screenLeft !== undefined ? window.screenLeft : window.screen.left
       const screenTop =
-        window.screenTop !== undefined ? window.screenTop : screen.top
+        window.screenTop !== undefined ? window.screenTop : window.screen.top
 
       const width = window.innerWidth
         ? window.innerWidth
@@ -122,7 +122,7 @@ class NewWindow extends React.PureComponent {
     } else {
       // Handle error on opening of new window.
       if (typeof onBlock === 'function') {
-        onBlock.call(null)
+        onBlock(null)
       } else {
         console.warn('A new window could not be opened. Maybe it was blocked.')
       }
@@ -155,7 +155,7 @@ class NewWindow extends React.PureComponent {
     const { onUnload } = this.props
 
     if (typeof onUnload === 'function') {
-      onUnload.call(null)
+      onUnload(null)
     }
   }
 }
