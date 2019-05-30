@@ -14,7 +14,7 @@
 
 ## Installation
 
-```shell
+```sh
 npm i react-new-window --save
 ```
 
@@ -62,7 +62,9 @@ To start contributing to this project, please do:
 
 ## Releases
 
-`npm run release`
+```sh
+npm run release
+```
 
 ### Prior work
 
