@@ -8,14 +8,14 @@
     "open",
     "popup"
   ],
-  "main": "src/NewWindow.js",
+  "main": "lib/react-new-window.js",
   "module": "es/react-new-window.js",
   "browser": "umd/react-new-window.js",
   "repository": "git@github.com:rmariuzzo/react-new-window.git",
   "author": "Rubens Mariuzzo <rubens@mariuzzo.com>",
   "license": "MIT",
   "files": [
-    "src",
+    "lib",
     "es",
     "umd"
   ],

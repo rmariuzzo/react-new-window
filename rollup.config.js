@@ -17,6 +17,23 @@ const plugins = [
 ]
 
 export default [
+  // CommonJS
+  {
+    input: 'src/NewWindow.js',
+    output: {
+      name: 'ReactNewWindow',
+      file: pkg.main,
+      format: 'cjs',
+      sourcemap: true,
+      globals: {
+        react: 'React',
+        'react-dom': 'ReactDOM'
+      }
+    },
+    external: ['react', 'react-dom'],
+    plugins
+  },
+
   // browser-friendly UMD build
   {
     input: 'src/NewWindow.js',
