@@ -6,19 +6,18 @@ import Row from './components/Row'
 import Button from './components/Button'
 import Container from './components/Container'
 import TextInput from './components/TextInput'
-import { storiesOf } from '@storybook/react';
+import { storiesOf } from '@storybook/react'
 
 const stories = storiesOf('react-new-window', module)
 
 class FeaturesPropStory extends React.PureComponent {
-
   state = {
     opened: false,
     features: {
       width: 400,
       height: 150,
       left: 0,
-      top: 0,
+      top: 0
     }
   }
 
@@ -38,73 +37,80 @@ class FeaturesPropStory extends React.PureComponent {
             <TextInput
               label="width="
               name="width"
-              value={ features.width }
+              value={features.width}
               type="number"
               min="0"
               step="10"
-              onChange={ (event) => this.inputChanged(event) }
+              onChange={event => this.inputChanged(event)}
             />
           </Col>
           <Col small={3}>
             <TextInput
               label="height="
               name="height"
-              value={ features.height }
+              value={features.height}
               type="number"
               min="0"
               step="10"
-              onChange={ (event) => this.inputChanged(event) }
+              onChange={event => this.inputChanged(event)}
             />
           </Col>
           <Col small={3}>
             <TextInput
               label="left="
               name="left"
-              value={ features.left }
+              value={features.left}
               type="number"
               min="0"
               step="10"
-              onChange={ (event) => this.inputChanged(event) }
+              onChange={event => this.inputChanged(event)}
             />
           </Col>
           <Col small={3}>
             <TextInput
               label="top="
               name="top"
-              value={ features.top }
+              value={features.top}
               type="number"
               min="0"
               step="10"
-              onChange={ (event) => this.inputChanged(event) }
+              onChange={event => this.inputChanged(event)}
             />
           </Col>
         </Row>
 
         <p>
-          Any window features allowed for the <code>window.open</code> can be used.
-          <br/>
-          <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/open#Window_features" target="_blank">View more details</a>.
+          Any window features allowed for the <code>window.open</code> can be
+          used.
+          <br />
+          <a
+            href="https://developer.mozilla.org/en-US/docs/Web/API/Window/open#Window_features"
+            target="_blank"
+          >
+            View more details
+          </a>
+          .
         </p>
 
-        <Button onClick={ () => this.toggleOpened() }>
-          { opened ? 'Close the opened window' : 'Open a new window' }
+        <Button onClick={() => this.toggleOpened()}>
+          {opened ? 'Close the opened window' : 'Open a new window'}
         </Button>
-        { opened &&
+        {opened && (
           <NewWindow
             center={false}
-            features={ features }
-            onUnload={ () => this.newWindowUnloaded() }
+            features={features}
+            onUnload={() => this.newWindowUnloaded()}
           >
             <h4>👋 Hi, again!</h4>
           </NewWindow>
-        }
+        )}
       </Container>
     )
   }
 
   toggleOpened() {
     action(this.state.opened ? 'Closing the window' : 'Opening the window')()
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       opened: !prevState.opened
     }))
   }
@@ -120,7 +126,8 @@ class FeaturesPropStory extends React.PureComponent {
     this.setState({
       features: {
         ...this.state.features,
-        [target.name]: target.type === 'checkbox' ? target.checked : target.value,
+        [target.name]:
+          target.type === 'checkbox' ? target.checked : target.value
       }
     })
   }

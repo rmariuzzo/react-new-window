@@ -4,15 +4,14 @@ import NewWindow from '../src/NewWindow'
 import Button from './components/Button'
 import Container from './components/Container'
 import TextInput from './components/TextInput'
-import { storiesOf } from '@storybook/react';
+import { storiesOf } from '@storybook/react'
 
 const stories = storiesOf('react-new-window', module)
 
 class TitlePropStory extends React.PureComponent {
-
   state = {
     opened: false,
-    title: 'Hello world!',
+    title: 'Hello world!'
   }
 
   componentDidMount() {
@@ -29,25 +28,25 @@ class TitlePropStory extends React.PureComponent {
         <TextInput
           label="Title"
           name="title"
-          value={ title }
-          onChange={ (event) => this.titleChanged(event.target.value) }
+          value={title}
+          onChange={event => this.titleChanged(event.target.value)}
         />
-        <Button onClick={ () => this.toggleOpened() }>
-          { opened ? 'Close the opened window' : 'Open a new window' }
+        <Button onClick={() => this.toggleOpened()}>
+          {opened ? 'Close the opened window' : 'Open a new window'}
         </Button>
-        { opened &&
+        {opened && (
           <NewWindow
-            title={ title }
-            onUnload={ () => this.newWindowUnloaded() }
-            features={ { left: 200, top: 200, width: 400, height: 400 } }
+            title={title}
+            onUnload={() => this.newWindowUnloaded()}
+            features={{ left: 200, top: 200, width: 400, height: 400 }}
           >
             <h4>Look over here 👆</h4>
-            <h5>My title is { title }</h5>
+            <h5>My title is {title}</h5>
             <p>
               <strong>Can't see it?</strong> That's how Safari is!
             </p>
           </NewWindow>
-        }
+        )}
       </Container>
     )
   }

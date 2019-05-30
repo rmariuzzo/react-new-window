@@ -6,11 +6,7 @@ const Col = ({ children, small, medium, large, extra }) => {
   className += medium ? ` m${medium}` : ''
   className += large ? ` l${large}` : ''
   className += extra ? ` x${extra}` : ''
-  return (
-    <div className={ className }>
-      { children }
-    </div>
-  )
+  return <div className={className}>{children}</div>
 }
 
 export default Col
