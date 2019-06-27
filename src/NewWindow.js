@@ -34,7 +34,9 @@ class NewWindow extends React.PureComponent {
    */
   constructor(props) {
     super(props)
-    this.container = document.createElement('div')
+    //this will not work in IE(including Edge browser)
+    //this.container = document.createElement('div')
+    this.container = null
     this.window = null
     this.windowCheckerInterval = null
     this.released = false
@@ -111,6 +113,8 @@ class NewWindow extends React.PureComponent {
     // Check if the new window was succesfully opened.
     if (this.window) {
       this.window.document.title = title
+      //fix for IE
+      this.container = this.window.document.createElement('div')
       this.window.document.body.appendChild(this.container)
 
       // If specified, copy styles from parent window's document.
