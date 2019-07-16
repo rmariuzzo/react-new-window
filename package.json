@@ -17,9 +17,10 @@
   "files": [
     "lib",
     "es",
-    "umd"
+    "umd",
+    "types"
   ],
-  "types": "./src/NewWindow.d.ts",
+  "types": "./types/NewWindow.d.ts",
   "dependencies": {
     "prop-types": "^15.7.2"
   },
