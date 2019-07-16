@@ -1,7 +1,7 @@
 {
   "name": "react-new-window",
   "description": "🔲 Pop a new window in React, using window.open",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "keywords": [
     "react",
     "window",
