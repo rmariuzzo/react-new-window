@@ -13,6 +13,14 @@ declare module 'react-new-window' {
   export interface IWindowFeatures {
     height: number
     width: number
+    left: number
+    top: number
+    menubar: boolean
+    toolbar: boolean
+    scrollbars: boolean
+    location: boolean
+    status: boolean
+    resizable: boolean
     [i: string]: boolean | number | string
   }
 
@@ -40,7 +48,7 @@ declare module 'react-new-window' {
     /**
      * The set of window features.
      */
-    features?: IWindowFeatures
+    features?: Partial<IWindowFeatures>
 
     /**
      * A function to be triggered before the new window unload.

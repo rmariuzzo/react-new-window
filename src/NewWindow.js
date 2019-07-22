@@ -24,7 +24,6 @@ class NewWindow extends React.PureComponent {
     onBlock: null,
     onOpen: null,
     onUnload: null,
-    center: 'parent',
     copyStyles: true
   }
 
@@ -63,37 +62,40 @@ class NewWindow extends React.PureComponent {
     const { url, title, name, features, onBlock, onOpen, center } = this.props
 
     // Prepare position of the new window to be centered against the 'parent' window or 'screen'.
-    if (
-      typeof center === 'string' &&
-      (features.width === undefined || features.height === undefined)
-    ) {
-      console.warn(
-        'width and height window features must be present when a center prop is provided'
-      )
-    } else if (center === 'parent') {
-      features.left =
-        window.top.outerWidth / 2 + window.top.screenX - features.width / 2
-      features.top =
-        window.top.outerHeight / 2 + window.top.screenY - features.height / 2
-    } else if (center === 'screen') {
-      const screenLeft =
-        window.screenLeft !== undefined ? window.screenLeft : window.screen.left
-      const screenTop =
-        window.screenTop !== undefined ? window.screenTop : window.screen.top
+    if (typeof center === 'string') {
+      if (features.width == null || features.height == null) {
+        console.warn(
+          'react-new-window: "width" and "height" window features must be present when a center prop is provided.'
+        )
+      } else if (center === 'parent') {
+        features.left =
+          window.top.outerWidth / 2 + window.top.screenX - features.width / 2
+        features.top =
+          window.top.outerHeight / 2 + window.top.screenY - features.height / 2
+      } else if (center === 'screen') {
+        const screenLeft =
+          window.screenLeft != null ? window.screenLeft : window.screen.left
+        const screenTop =
+          window.screenTop != null ? window.screenTop : window.screen.top
 
-      const width = window.innerWidth
-        ? window.innerWidth
-        : document.documentElement.clientWidth
-        ? document.documentElement.clientWidth
-        : window.screen.width
-      const height = window.innerHeight
-        ? window.innerHeight
-        : document.documentElement.clientHeight
-        ? document.documentElement.clientHeight
-        : window.screen.height
+        const width = window.innerWidth
+          ? window.innerWidth
+          : document.documentElement.clientWidth
+          ? document.documentElement.clientWidth
+          : window.screen.width
+        const height = window.innerHeight
+          ? window.innerHeight
+          : document.documentElement.clientHeight
+          ? document.documentElement.clientHeight
+          : window.screen.height
 
-      features.left = width / 2 - features.width / 2 + screenLeft
-      features.top = height / 2 - features.height / 2 + screenTop
+        features.left = width / 2 - features.width / 2 + screenLeft
+        features.top = height / 2 - features.height / 2 + screenTop
+      } else {
+        console.warn(
+          'react-new-window: Invalid `center` string provided. Only these strings are permitted: "parent", "screen".'
+        )
+      }
     }
 
     // Open a new window.

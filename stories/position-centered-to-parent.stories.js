@@ -7,7 +7,7 @@ import { storiesOf } from '@storybook/react'
 
 const stories = storiesOf('react-new-window', module)
 
-class DefaultStory extends React.PureComponent {
+class CenteredToParentStory extends React.PureComponent {
   state = {
     opened: false,
     count: 0
@@ -28,7 +28,7 @@ class DefaultStory extends React.PureComponent {
     return (
       <Container>
         <h2>React New Window</h2>
-        <h3>Example</h3>
+        <h3>prop: center: "parent"</h3>
         <h4>Counting {count}...</h4>
         <Button onClick={() => this.toggleOpened()}>
           {opened ? 'Close the opened window' : 'Open a new window'}
@@ -36,7 +36,8 @@ class DefaultStory extends React.PureComponent {
         {opened && (
           <NewWindow
             onUnload={() => this.newWindowUnloaded()}
-            features={{ width: 400, height: 400 }}
+            center="parent"
+            features={{ left: 200, top: 200, width: 400, height: 400 }}
           >
             <h2>Hi 👋</h2>
             <h4>Counting here as well {count}...</h4>
@@ -58,4 +59,4 @@ class DefaultStory extends React.PureComponent {
   }
 }
 
-stories.add('Default', () => <DefaultStory />)
+stories.add('Position: Centered To Parent', () => <CenteredToParentStory />)
