@@ -199,7 +199,15 @@ function copyStyles(source, target) {
     } catch (err) {
       console.error(err)
     }
-    if (rules) {
+
+    // For @font-face rule, it must be loaded via <link href=''> because the
+    // rule contains relative path from the css file.
+    const isFontFaceRule =
+      rules &&
+      Object.values(rules).some(r => r instanceof CSSFontFaceRule) &&
+      styleSheet.href
+
+    if (rules && !isFontFaceRule) {
       const newStyleEl = source.createElement('style')
 
       // Write the text of each rule into the body of the style element
