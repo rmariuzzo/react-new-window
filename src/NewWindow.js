@@ -110,7 +110,7 @@ class NewWindow extends React.PureComponent {
 
     // Check if the new window was succesfully opened.
     if (this.window) {
-      this.window.document.title = title
+      this.window.document.title = title || document.title
       this.window.document.body.appendChild(this.container)
 
       // If specified, copy styles from parent window's document.
