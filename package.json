@@ -1,6 +1,6 @@
 {
   "name": "react-new-window",
-  "description": "🔲 Pop a new window in React, using window.open",
+  "description": "Pop a new window in React, using window.open API",
   "version": "0.1.2",
   "keywords": [
     "react",
@@ -13,7 +13,7 @@
   "browser": "umd/react-new-window.js",
   "repository": "git@github.com:rmariuzzo/react-new-window.git",
   "author": "Rubens Mariuzzo <rubens@mariuzzo.com>",
-  "license": "MIT",
+  "license": "SEE LICENSE IN ./LICENSE",
   "files": [
     "lib",
     "es",
@@ -39,12 +39,12 @@
     "eslint-plugin-react": "^7.13.0",
     "husky": "^2.3.0",
     "jest": "^22.4.4",
-    "np": "^2.20.1",
     "prettier": "^1.17.1",
     "pretty-quick": "^1.11.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-test-renderer": "^16.8.6",
+    "rimraf": "^3.0.2",
     "rollup": "^0.57.1",
     "rollup-plugin-babel": "^4.3.2",
     "rollup-plugin-commonjs": "^9.3.4",
@@ -60,10 +60,10 @@
   },
   "scripts": {
     "build": "cross-env NODE_ENV=production rollup -c",
-    "release": "np",
-    "prerelease": "npm run lint && npm run build",
+    "clean": "rimraf 'es' 'lib' 'umd'",
+    "build-storybook": "cross-env NODE_ENV=test build-storybook -o docs",
     "lint": "eslint ./src",
-    "storybook": "cross-env NODE_ENV=test start-storybook -p 6006",
-    "build-storybook": "cross-env NODE_ENV=test build-storybook -o docs"
+    "postversion": "git push origin && git push origin --tags",
+    "storybook": "cross-env NODE_ENV=test start-storybook -p 6006"
   }
 }
