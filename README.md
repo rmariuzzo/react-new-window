@@ -63,7 +63,7 @@ To start contributing to this project, please do:
 ## Releases
 
 ```sh
-npm run release
+npm version
 ```
 
 ### Prior work
