@@ -14,5 +14,10 @@
   "parser": "babel-eslint",
   "env": {
     "browser": true
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }
