@@ -97,7 +97,6 @@ class FeaturesPropStory extends React.PureComponent {
         </Button>
         {opened && (
           <NewWindow
-            center={false}
             features={features}
             onUnload={() => this.newWindowUnloaded()}
           >
