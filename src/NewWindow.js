@@ -108,7 +108,7 @@ class NewWindow extends React.PureComponent {
       }
     }, 50)
 
-    // Check if the new window was succesfully opened.
+    // Check if the new window was successfully opened.
     if (this.window) {
       this.window.document.title = title
       this.window.document.body.appendChild(this.container)
@@ -125,6 +125,7 @@ class NewWindow extends React.PureComponent {
       // Release anything bound to this component before the new window unload.
       this.window.addEventListener('beforeunload', () => this.release())
     } else {
+      clearInterval(this.windowCheckerInterval)
       // Handle error on opening of new window.
       if (typeof onBlock === 'function') {
         onBlock(null)
