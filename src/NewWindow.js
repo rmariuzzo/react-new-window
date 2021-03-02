@@ -25,7 +25,8 @@ class NewWindow extends React.PureComponent {
     onOpen: null,
     onUnload: null,
     center: 'parent',
-    copyStyles: true
+    copyStyles: true,
+    closeWithParent: false
   }
 
   /**
@@ -124,6 +125,10 @@ class NewWindow extends React.PureComponent {
 
       // Release anything bound to this component before the new window unload.
       this.window.addEventListener('beforeunload', () => this.release())
+
+      if (this.props.closeWithParent) {
+        window.addEventListener('unload', () => this.window.close())
+      }
     } else {
       // Handle error on opening of new window.
       if (typeof onBlock === 'function') {
@@ -140,6 +145,10 @@ class NewWindow extends React.PureComponent {
   componentWillUnmount() {
     if (this.window) {
       this.window.close()
+
+      if (this.props.closeWithParent) {
+        window.removeEventListener('unload', () => this.window.close())
+      }
     }
   }
 
@@ -175,7 +184,8 @@ NewWindow.propTypes = {
   onBlock: PropTypes.func,
   onOpen: PropTypes.func,
   center: PropTypes.oneOf(['parent', 'screen']),
-  copyStyles: PropTypes.bool
+  copyStyles: PropTypes.bool,
+  closeWithParent: PropTypes.bool
 }
 
 /**
