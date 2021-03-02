@@ -66,6 +66,11 @@ declare module 'react-new-window' {
      * If specified, copy styles from parent window's document.
      */
     copyStyles?: boolean
+
+    /**
+    * Close the child window when the parent is closed.
+    * */
+    closeWithParent?: boolean
   }
 
   export default class NewWindow extends React.PureComponent<INewWindowProps> {
