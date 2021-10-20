@@ -34,6 +34,7 @@ class CloseOnUnmountPropStories extends React.PureComponent {
         {opened && (
           <NewWindow
             title={'Window'}
+            name={"closeOnUnmount-window"}
             onUnload={() => this.newWindowUnloaded()}
             features={{ left: 200, top: 200, width: 400, height: 400 }}
             closeOnUnmount={closeOnUnmount}

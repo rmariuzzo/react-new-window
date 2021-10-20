@@ -112,7 +112,22 @@ class NewWindow extends React.PureComponent {
     // Check if the new window was succesfully opened.
     if (this.window) {
       this.window.document.title = title
-      this.window.document.body.appendChild(this.container)
+
+      // Check if the container already exists as the window may have been already open
+      this.container = this.window.document.getElementById(
+        'new-window-container'
+      )
+      if (this.container === null) {
+        this.container = this.window.document.createElement('div')
+        this.container.setAttribute('id', 'new-window-container')
+        this.window.document.body.appendChild(this.container)
+      } else {
+        // Remove any existing content
+        const staticContainer = this.window.document.getElementById(
+          'new-window-container-static'
+        )
+        this.window.document.body.removeChild(staticContainer)
+      }
 
       // If specified, copy styles from parent window's document.
       if (this.props.copyStyles) {
@@ -146,6 +161,7 @@ class NewWindow extends React.PureComponent {
       } else if (this.props.children) {
         // Clone any children so they aren't removed when react stops rendering
         const clone = this.container.cloneNode(true)
+        clone.setAttribute('id', 'new-window-container-static')
         this.window.document.body.appendChild(clone)
       }
     }
