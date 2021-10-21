@@ -1,6 +1,6 @@
 [![React New Window - Pop new windows in React, using window.open API.](.github/banner.svg)](#features)
 
-> Inspired by [David Gilbertson's article](https://hackernoon.com/using-a-react-16-portal-to-do-something-cool-2a2d627b0202).
+> Inspired by [David Gilbertson's article](https://medium.com/hackernoon/using-a-react-16-portal-to-do-something-cool-2a2d627b0202).
 
 </div>
 
