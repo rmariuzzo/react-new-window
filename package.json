@@ -13,7 +13,7 @@
   "browser": "umd/react-new-window.js",
   "repository": "git@github.com:rmariuzzo/react-new-window.git",
   "author": "Rubens Mariuzzo <rubens@mariuzzo.com>",
-  "license": "SEE LICENSE IN ./LICENSE",
+  "license": "MIT",
   "files": [
     "lib",
     "es",
