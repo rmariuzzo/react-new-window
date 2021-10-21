@@ -45,8 +45,10 @@ The `children` contents is what will be rendered into the new popup window. In t
  | `features` | `Object`   | `{}`          | The set of window features ([more details on `windowFeatures`](https://developer.mozilla.org/en-US/docs/Web/API/Window/open#Window_features)). |
  | `onUnload` | `Function` | `undefined`   | A function to be triggered before the new window unload. |
  | `onBlock`  | `Function` | `undefined`   | A function to be triggered when the new window could not be opened. |
+ | `onOpen`  | `Function` | `undefined`   | A function to be triggered when window open by library. |
  | `center`   | `String`   | `parent`      | Indicate how to center the new window. Valid values are: `parent` or `screen`. `parent` will center the new window according to its _parent_ window. `screen` will center the new window according to the _screen_. |
  | `copyStyles`  | `Boolean` | `true`   | If specified, copy styles from parent window's document. |
+ | `closeOnUnmount`  | `Boolean` | `true`   | If specified, close the new window on unmount.  |
 
 ## Tests
 

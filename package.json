@@ -13,7 +13,7 @@
   "browser": "umd/react-new-window.js",
   "repository": "git@github.com:rmariuzzo/react-new-window.git",
   "author": "Rubens Mariuzzo <rubens@mariuzzo.com>",
-  "license": "SEE LICENSE IN ./LICENSE",
+  "license": "MIT",
   "files": [
     "lib",
     "es",
@@ -55,8 +55,8 @@
     "uglify-es": "^3.3.10"
   },
   "peerDependencies": {
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react": "^16.0.0 || ^17.0.0",
+    "react-dom": "^16.0.0 || ^17.0.0"
   },
   "scripts": {
     "build": "cross-env NODE_ENV=production rollup -c",
