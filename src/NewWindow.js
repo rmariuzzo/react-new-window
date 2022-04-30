@@ -54,7 +54,6 @@ class NewWindow extends React.PureComponent {
 
   componentDidMount() {
     this.openChild()
-    this.setState({ mounted: true })
   }
 
   /**
@@ -99,7 +98,7 @@ class NewWindow extends React.PureComponent {
 
     // Open a new window.
     this.window = window.open(url, name, toWindowFeatures(features))
-    this.container = this.window.document.createElement('div')
+    this.container = this.window?.document.createElement('div')
     // When a new window use content from a cross-origin there's no way we can attach event
     // to it. Therefore, we need to detect in a interval when the new window was destroyed
     // or was closed.
@@ -140,6 +139,8 @@ class NewWindow extends React.PureComponent {
 
       // Release anything bound to this component before the new window unload.
       this.window.addEventListener('beforeunload', () => this.release())
+
+      this.setState({ mounted: true })
     } else {
       // Handle error on opening of new window.
       if (typeof onBlock === 'function') {
