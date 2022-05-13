@@ -262,8 +262,23 @@ class NewWindow extends React.PureComponent {
         newLinkEl.href = styleSheet.href
         headFrag.appendChild(newLinkEl)
       }
-    })
+    });
+
+    // Remember existing styles
+    let existing = [];
+    let childs = target.head.childNodes;
+    for (let i = 0; i < childs.length; ++i)
+      if (childs[i].tagName.toLowerCase() === 'style')
+        existing.push(childs[i]);
+
     target.head.appendChild(headFrag)
+
+    // Now delete the old styles. I need to do it like this instead of removing the old styles first, otherwise we get flicker as the styles briefly do not exist.
+    window.setTimeout(() => {
+      for (let i = 0; i < existing.length; ++i)
+        if (existing[i].parentNode === target.head)
+          target.head.removeChild(existing[i]);
+    }, 1);
 
     // Monitor changes and update the styles if any happen.
     if (!this.observer) {
