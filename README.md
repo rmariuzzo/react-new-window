@@ -6,7 +6,7 @@
 
 ## Features
 
- - **Only 4.05KB** (gzipped!).
+ - **Only 3.68KB** (gzipped!).
  - **Support the full `window.open` api**.
  - **Built for React 16** (uses `ReactDOM.createPortal`).
  - **Handler for blocked popups** (via `onBlock` prop).
