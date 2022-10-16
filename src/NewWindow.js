@@ -1,6 +1,5 @@
 /**
  * Component dependencies.
- * @private
  */
 
 import React from 'react'
@@ -53,8 +52,12 @@ class NewWindow extends React.PureComponent {
   }
 
   componentDidMount() {
-    this.openChild()
-    this.setState({ mounted: true })
+    // In React 18, componentDidMount gets called twice
+    // causing openChild to get called twice
+    if (!this.window && !this.container) {
+      this.openChild()
+      this.setState({ mounted: true })  
+    }
   }
 
   /**
@@ -155,7 +158,10 @@ class NewWindow extends React.PureComponent {
    * prop {closeOnUnmount} is true, otherwise the NewWindow will remain open
    */
   componentWillUnmount() {
-    if (this.window) {
+    // With React 18, componentWillUnmount gets called twice
+    // so only call componentWillUnmount when the `mounted` state
+    // is set
+    if (this.state.mounted && this.window) {
       if (this.props.closeOnUnmount) {
         this.window.close()
       } else if (this.props.children) {
