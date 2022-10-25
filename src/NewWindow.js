@@ -139,7 +139,7 @@ class NewWindow extends React.PureComponent {
       }
 
       // Release anything bound to this component before the new window unload.
-      this.window.addEventListener('ononload', () => this.release())
+      this.window.addEventListener('onunload', () => this.release())
     } else {
       // Handle error on opening of new window.
       if (typeof onBlock === 'function') {
