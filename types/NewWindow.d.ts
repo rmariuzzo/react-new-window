@@ -23,6 +23,11 @@ declare module 'react-new-window' {
    */
   export interface INewWindowProps {
     /**
+     * Children to render in the new window.
+     */
+    children?: React.ReactNode
+
+    /**
      * The URL to open, if specified any children will be overriden.
      */
     url?: string
