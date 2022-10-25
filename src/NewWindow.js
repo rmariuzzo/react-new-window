@@ -99,7 +99,8 @@ class NewWindow extends React.PureComponent {
 
     // Open a new window.
     this.window = window.open(url, name, toWindowFeatures(features))
-    this.container = this.window.document.createElement('div')
+    let doc = this.window.document;
+    this.container = doc.createElement('div')
     // When a new window use content from a cross-origin there's no way we can attach event
     // to it. Therefore, we need to detect in a interval when the new window was destroyed
     // or was closed.
@@ -111,27 +112,32 @@ class NewWindow extends React.PureComponent {
 
     // Check if the new window was succesfully opened.
     if (this.window) {
-      this.window.document.title = title
+      doc.title = title;
 
       // Check if the container already exists as the window may have been already open
-      this.container = this.window.document.getElementById(
+      this.container = doc.getElementById(
         'new-window-container'
       )
       if (this.container === null) {
-        this.container = this.window.document.createElement('div')
+        // Set the base href for links.
+        this.base = doc.createElement('base');
+        this.base.setAttribute('href', window.location.href);
+        doc.head.appendChild(this.base);
+
+        this.container = doc.createElement('div')
         this.container.setAttribute('id', 'new-window-container')
-        this.window.document.body.appendChild(this.container)
+        doc.body.appendChild(this.container)
       } else {
         // Remove any existing content
-        const staticContainer = this.window.document.getElementById(
+        const staticContainer = doc.getElementById(
           'new-window-container-static'
         )
-        this.window.document.body.removeChild(staticContainer)
+        doc.body.removeChild(staticContainer)
       }
 
       // If specified, copy styles from parent window's document.
       if (this.props.copyStyles) {
-        setTimeout(() => copyStyles(document, this.window.document), 0)
+        setTimeout(() => this.copyStyles(document, doc), 0)
       }
 
       if (typeof onOpen === 'function') {
@@ -180,6 +186,12 @@ class NewWindow extends React.PureComponent {
     // Remove checker interval.
     clearInterval(this.windowCheckerInterval)
 
+    // Clear the observer.
+    if (this.observer) {
+      this.observer.disconnect();
+      this.observer = null;
+    }
+
     // Call any function bound to the `onUnload` prop.
     const { onUnload } = this.props
 
@@ -187,6 +199,94 @@ class NewWindow extends React.PureComponent {
       onUnload(null)
     }
   }
+
+  /**
+  * Copy styles from a source document to a target.
+  * @param {Object} source
+  * @param {Object} target
+  * @private
+  */
+
+  copyStyles(source, target) {
+    // Store style tags, avoid reflow in the loop
+    const headFrag = target.createDocumentFragment()
+
+    Array.from(source.styleSheets).forEach(styleSheet => {
+      // For <style> elements
+      let rules
+      try {
+        rules = styleSheet.cssRules
+      } catch (err) {
+        console.error(err)
+      }
+      if (rules) {
+        // IE11 is very slow for appendChild, so use plain string here
+        const ruleText = []
+
+        // Write the text of each rule into the body of the style element
+        Array.from(styleSheet.cssRules).forEach(cssRule => {
+          const { type } = cssRule
+
+          // Skip unknown rules
+          if (type === CSSRule.UNKNOWN_RULE) {
+            return
+          }
+
+          let returnText = ''
+
+          if (type === CSSRule.KEYFRAMES_RULE) {
+            // IE11 will throw error when trying to access cssText property, so we
+            // need to assemble them
+            returnText = getKeyFrameText(cssRule)
+          } else if (
+            [CSSRule.IMPORT_RULE, CSSRule.FONT_FACE_RULE].includes(type)
+          ) {
+            // Check if the cssRule type is CSSImportRule (3) or CSSFontFaceRule (5)
+            // to handle local imports on a about:blank page
+            // '/custom.css' turns to 'http://my-site.com/custom.css'
+            returnText = fixUrlForRule(cssRule)
+          } else {
+            returnText = cssRule.cssText
+          }
+          ruleText.push(returnText)
+        })
+
+        const newStyleEl = target.createElement('style')
+        newStyleEl.textContent = ruleText.join('\n')
+        headFrag.appendChild(newStyleEl)
+      } else if (styleSheet.href) {
+        // for <link> elements loading CSS from a URL
+        const newLinkEl = target.createElement('link')
+
+        newLinkEl.rel = 'stylesheet'
+        newLinkEl.href = styleSheet.href
+        headFrag.appendChild(newLinkEl)
+      }
+    });
+
+    // Remember existing styles
+    let existing = [];
+    let childs = target.head.childNodes;
+    for (let i = 0; i < childs.length; ++i)
+      if (childs[i].tagName.toLowerCase() === 'style')
+        existing.push(childs[i]);
+
+    target.head.appendChild(headFrag)
+
+    // Now delete the old styles. I need to do it like this instead of removing the old styles first, otherwise we get flicker as the styles briefly do not exist.
+    window.setTimeout(() => {
+      for (let i = 0; i < existing.length; ++i)
+        if (existing[i].parentNode === target.head)
+          target.head.removeChild(existing[i]);
+    }, 1);
+
+    // Monitor changes and update the styles if any happen.
+    if (!this.observer) {
+      this.observer = new MutationObserver((list, observer) => { this.copyStyles(source, target) } );
+      this.observer.observe(source.head, { childList: true });
+    }
+  }
+
 }
 
 NewWindow.propTypes = {
@@ -208,72 +308,6 @@ NewWindow.propTypes = {
  * @private
  */
 
-/**
- * Copy styles from a source document to a target.
- * @param {Object} source
- * @param {Object} target
- * @private
- */
-
-function copyStyles(source, target) {
-  // Store style tags, avoid reflow in the loop
-  const headFrag = target.createDocumentFragment()
-
-  Array.from(source.styleSheets).forEach(styleSheet => {
-    // For <style> elements
-    let rules
-    try {
-      rules = styleSheet.cssRules
-    } catch (err) {
-      console.error(err)
-    }
-    if (rules) {
-      // IE11 is very slow for appendChild, so use plain string here
-      const ruleText = []
-
-      // Write the text of each rule into the body of the style element
-      Array.from(styleSheet.cssRules).forEach(cssRule => {
-        const { type } = cssRule
-
-        // Skip unknown rules
-        if (type === CSSRule.UNKNOWN_RULE) {
-          return
-        }
-
-        let returnText = ''
-
-        if (type === CSSRule.KEYFRAMES_RULE) {
-          // IE11 will throw error when trying to access cssText property, so we
-          // need to assemble them
-          returnText = getKeyFrameText(cssRule)
-        } else if (
-          [CSSRule.IMPORT_RULE, CSSRule.FONT_FACE_RULE].includes(type)
-        ) {
-          // Check if the cssRule type is CSSImportRule (3) or CSSFontFaceRule (5)
-          // to handle local imports on a about:blank page
-          // '/custom.css' turns to 'http://my-site.com/custom.css'
-          returnText = fixUrlForRule(cssRule)
-        } else {
-          returnText = cssRule.cssText
-        }
-        ruleText.push(returnText)
-      })
-
-      const newStyleEl = target.createElement('style')
-      newStyleEl.textContent = ruleText.join('\n')
-      headFrag.appendChild(newStyleEl)
-    } else if (styleSheet.href) {
-      // for <link> elements loading CSS from a URL
-      const newLinkEl = target.createElement('link')
-
-      newLinkEl.rel = 'stylesheet'
-      newLinkEl.href = styleSheet.href
-      headFrag.appendChild(newLinkEl)
-    }
-  })
-
-  target.head.appendChild(headFrag)
-}
 
 /**
  * Make keyframe rules.
