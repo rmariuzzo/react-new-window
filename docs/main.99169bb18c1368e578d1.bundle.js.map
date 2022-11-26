@@ -1,1 +1,0 @@
-{"version":3,"file":"main.99169bb18c1368e578d1.bundle.js","sources":["webpack:///./stories/components/Button.js"],"sourcesContent":["import React from 'react'\n\nconst Button = ({ children, ...otherProps }) => (\n  <button className=\"waves-effect waves-light btn\" {...otherProps}>\n    {children}\n  </button>\n)\n\nexport default Button\n"],"mappings":"AAEA","sourceRoot":""}
