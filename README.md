@@ -6,11 +6,11 @@
 
 ## Features
 
- - **Only 3.68KB** (gzipped!).
- - **Support the full `window.open` api**.
- - **Built for React 16** (uses `ReactDOM.createPortal`).
- - **Handler for blocked popups** (via `onBlock` prop).
- - **Center popups** according to the parent _window_ or _screen_.
+- **Only 3.68KB** (gzipped!).
+- **Support the full `window.open` api**.
+- **Built for React 16** (uses `ReactDOM.createPortal`).
+- **Handler for blocked popups** (via `onBlock` prop).
+- **Center popups** according to the parent _window_ or _screen_.
 
 ## Installation
 
@@ -37,18 +37,18 @@ The `children` contents is what will be rendered into the new popup window. In t
 
 ## Documentation
 
- | Properties | Type       | Default       | Description |
- | ---        | ---        | ---           | ---         |
- | `url`      | `String`   | ` `           | The URL to open, if specified any `children` will be overriden ([more details on `url`](https://developer.mozilla.org/en-US/docs/Web/API/Window/open)). |
- | `name`     | `String`   | ` `           | The name of the window ([more details on `windowName`](https://developer.mozilla.org/en-US/docs/Web/API/Window/open)). |
- | `title`    | `String`   | ` `           | The title of the new window document. |
- | `features` | `Object`   | `{}`          | The set of window features ([more details on `windowFeatures`](https://developer.mozilla.org/en-US/docs/Web/API/Window/open#Window_features)). |
- | `onUnload` | `Function` | `undefined`   | A function to be triggered before the new window unload. |
- | `onBlock`  | `Function` | `undefined`   | A function to be triggered when the new window could not be opened. |
- | `onOpen`  | `Function(w: Window)` | `undefined`   | A function to be triggered when window open by library. |
- | `center`   | `String`   | `parent`      | Indicate how to center the new window. Valid values are: `parent` or `screen`. `parent` will center the new window according to its _parent_ window. `screen` will center the new window according to the _screen_. |
- | `copyStyles`  | `Boolean` | `true`   | If specified, copy styles from parent window's document. |
- | `closeOnUnmount`  | `Boolean` | `true`   | If specified, close the new window on unmount.  |
+| Properties       | Type                  | Default     | Description                                                                                                                                                                                                         |
+| ---------------- | --------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `url`            | `String`              | ` `         | The URL to open, if specified any `children` will be overriden ([more details on `url`](https://developer.mozilla.org/en-US/docs/Web/API/Window/open)).                                                             |
+| `name`           | `String`              | ` `         | The name of the window ([more details on `windowName`](https://developer.mozilla.org/en-US/docs/Web/API/Window/open)).                                                                                              |
+| `title`          | `String`              | ` `         | The title of the new window document.                                                                                                                                                                               |
+| `features`       | `Object`              | `{}`        | The set of window features ([more details on `windowFeatures`](https://developer.mozilla.org/en-US/docs/Web/API/Window/open#Window_features)).                                                                      |
+| `onUnload`       | `Function`            | `undefined` | A function to be triggered before the new window unload.                                                                                                                                                            |
+| `onBlock`        | `Function`            | `undefined` | A function to be triggered when the new window could not be opened.                                                                                                                                                 |
+| `onOpen`         | `Function(w: Window)` | `undefined` | A function to be triggered when window open by library.                                                                                                                                                             |
+| `center`         | `String`              | `parent`    | Indicate how to center the new window. Valid values are: `parent` or `screen`. `parent` will center the new window according to its _parent_ window. `screen` will center the new window according to the _screen_. |
+| `copyStyles`     | `Boolean`             | `true`      | If specified, copy styles from parent window's document.                                                                                                                                                            |
+| `closeOnUnmount` | `Boolean`             | `true`      | If specified, close the new window on unmount.                                                                                                                                                                      |
 
 ## Tests
 
@@ -58,19 +58,20 @@ Tests are manually done using Storybook. It can be run locally with: `yarn story
 
 To start contributing to this project, please do:
 
- 1. Fork and clone this repo.
- 2. Do your work.
- 3. Create a PR.
+1.  Fork and clone this repo.
+2.  Do your work.
+3.  Create a PR.
 
 ## Releases
 
-```sh
-npm version
-```
+The release process consists of two operations:
+
+1.  Create new version using: `npm version`
+2.  [This GitHub action](.github/workflows/publish.yml) will publish the new version to NPM.
 
 ### Prior work
 
- - [react-popout](https://github.com/JakeGinnivan/react-popout).
+- [react-popout](https://github.com/JakeGinnivan/react-popout).
 
 ---
 
