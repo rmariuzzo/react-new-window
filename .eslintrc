@@ -1,17 +1,11 @@
 {
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended"
-  ],
-  "plugins": [
-    "react",
-    "prettier"
-  ],
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "plugins": ["react", "prettier"],
   "rules": {
     "prettier/prettier": "error",
     "no-console": ["error", { "allow": ["warn", "error"] }]
   },
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
   "env": {
     "browser": true
   },
