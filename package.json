@@ -61,7 +61,6 @@
     "clean": "rimraf 'es' 'lib' 'umd' 'docs'",
     "build-storybook": "cross-env NODE_ENV=test NODE_OPTIONS=--openssl-legacy-provider build-storybook -o docs",
     "lint": "eslint ./src",
-    "version": "npm run build && npm run build-storybook && git add -A docs",
     "postversion": "git push origin && git push origin --tags",
     "storybook": "cross-env NODE_ENV=test start-storybook -p 6006"
   }
