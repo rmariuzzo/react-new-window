@@ -37,6 +37,8 @@
     "@rollup/plugin-terser": "^0.1.0",
     "@storybook/addon-actions": "^6.5.13",
     "@storybook/addon-links": "^6.5.13",
+    "@storybook/addon-storysource": "^6.5.13",
+    "@storybook/builder-vite": "^0.2.5",
     "@storybook/react": "^6.5.13",
     "@testing-library/react": "^13.4.0",
     "babel-eslint": "^10.1.0",
@@ -54,7 +56,8 @@
     "react-test-renderer": "^18.2.0",
     "rimraf": "^3.0.2",
     "rollup": "^3.5.0",
-    "rollup-plugin-filesize": "^9.1.2"
+    "rollup-plugin-filesize": "^9.1.2",
+    "vite": "^3.2.4"
   },
   "peerDependencies": {
     "react": "^16.0.0 || ^18.0.0",
