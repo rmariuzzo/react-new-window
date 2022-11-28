@@ -1,20 +1,28 @@
-import babel from 'rollup-plugin-babel'
-import uglify from 'rollup-plugin-uglify'
-import replace from 'rollup-plugin-replace'
-import resolve from 'rollup-plugin-node-resolve'
-import commonjs from 'rollup-plugin-commonjs'
+import babel from '@rollup/plugin-babel'
+import replace from '@rollup/plugin-replace'
+import resolve from '@rollup/plugin-node-resolve'
+import commonjs from '@rollup/plugin-commonjs'
 import filesize from 'rollup-plugin-filesize'
-import { minify } from 'uglify-es'
+import { terser } from "rollup-plugin-terser";
+
+
 import pkg from './package.json'
 
 const plugins = [
-  babel({ exclude: ['node_modules/**'], runtimeHelpers: true }),
+  babel({ exclude: ['node_modules/**'], babelHelpers: 'runtime' }),
   resolve(),
   commonjs(),
   replace({ 'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV) }),
-  uglify({}, minify),
+  terser(),
   filesize()
 ]
+
+const globals = {
+  react: 'React',
+  'react-dom': 'ReactDOM'
+}
+
+const external = ['react', 'react-dom']
 
 export default [
   // CommonJS
@@ -25,12 +33,9 @@ export default [
       file: pkg.main,
       format: 'cjs',
       sourcemap: true,
-      globals: {
-        react: 'React',
-        'react-dom': 'ReactDOM'
-      }
+      globals,
     },
-    external: ['react', 'react-dom'],
+    external,
     plugins
   },
 
@@ -42,12 +47,9 @@ export default [
       file: pkg.browser,
       format: 'umd',
       sourcemap: true,
-      globals: {
-        react: 'React',
-        'react-dom': 'ReactDOM'
-      }
+      globals
     },
-    external: ['react', 'react-dom'],
+    external,
     plugins
   },
 
@@ -59,7 +61,7 @@ export default [
       format: 'es',
       sourcemap: true
     },
-    external: ['react', 'react-dom'],
+    external,
     plugins
   }
 ]
