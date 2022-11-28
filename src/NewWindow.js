@@ -1,6 +1,5 @@
 /**
  * Component dependencies.
- * @private
  */
 
 import React from 'react'
@@ -53,7 +52,12 @@ class NewWindow extends React.PureComponent {
   }
 
   componentDidMount() {
-    this.openChild()
+    // In React 18, componentDidMount gets called twice
+    // causing openChild to get called twice
+    if (!this.window && !this.container) {
+      this.openChild()
+      this.setState({ mounted: true })
+    }
   }
 
   /**
@@ -84,13 +88,13 @@ class NewWindow extends React.PureComponent {
       const width = window.innerWidth
         ? window.innerWidth
         : document.documentElement.clientWidth
-        ? document.documentElement.clientWidth
-        : window.screen.width
+          ? document.documentElement.clientWidth
+          : window.screen.width
       const height = window.innerHeight
         ? window.innerHeight
         : document.documentElement.clientHeight
-        ? document.documentElement.clientHeight
-        : window.screen.height
+          ? document.documentElement.clientHeight
+          : window.screen.height
 
       features.left = width / 2 - features.width / 2 + screenLeft
       features.top = height / 2 - features.height / 2 + screenTop
@@ -156,7 +160,10 @@ class NewWindow extends React.PureComponent {
    * prop {closeOnUnmount} is true, otherwise the NewWindow will remain open
    */
   componentWillUnmount() {
-    if (this.window) {
+    // With React 18, componentWillUnmount gets called twice
+    // so only call componentWillUnmount when the `mounted` state
+    // is set
+    if (this.state.mounted && this.window) {
       if (this.props.closeOnUnmount) {
         this.window.close()
       } else if (this.props.children) {
@@ -228,6 +235,14 @@ function copyStyles(source, target) {
     } catch (err) {
       console.error(err)
     }
+
+    // For @font-face rule, it must be loaded via <link href=''> because the
+    // rule contains relative path from the css file.
+    const isFontFaceRule =
+      rules &&
+      Object.values(rules).some(r => r instanceof CSSFontFaceRule) &&
+      styleSheet.href
+
     if (rules) {
       // IE11 is very slow for appendChild, so use plain string here
       const ruleText = []
