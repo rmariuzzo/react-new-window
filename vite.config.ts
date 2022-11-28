@@ -7,8 +7,8 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, 'src/NewWindow.ts'),
       name: 'ReactNewWindow',
-      formats: ['es', 'umd', 'cjs'],
-      fileName: 'NewWindow',
+      formats: ['es', 'umd'],
+      fileName: 'react-new-window',
     },
     rollupOptions: {
       external: ['react', 'react-dom'],
@@ -19,5 +19,9 @@ export default defineConfig({
         },
       },
     },
+  },
+  test: {
+    globals: true,
+    environment: 'jsdom',
   },
 })

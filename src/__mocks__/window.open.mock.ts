@@ -1,8 +1,10 @@
+import { vi } from 'vitest'
+
 Object.defineProperty(window, 'open', {
   writable: true,
-  value: jest.fn().mockImplementation((url, target, windowFeatures) => ({
+  value: vi.fn().mockImplementation(() => ({
     document: document.implementation.createHTMLDocument(),
-    addEventListener: jest.fn(),
-    close: jest.fn()
-  }))
+    addEventListener: vi.fn(),
+    close: vi.fn(),
+  })),
 })

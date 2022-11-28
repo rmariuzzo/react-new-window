@@ -1,11 +1,12 @@
 import './__mocks__/window.open.mock'
 
+import { vi } from 'vitest'
 import React from 'react'
 import NewWindow from './NewWindow'
 import { render, waitFor, within } from '@testing-library/react'
 
 describe('NewWindow', () => {
-  beforeEach(jest.clearAllMocks)
+  beforeEach(vi.clearAllMocks)
 
   it('should render', () => {
     expect(() => render(<NewWindow />)).not.toThrow()
@@ -26,5 +27,5 @@ describe('NewWindow', () => {
 })
 
 function getNewWindow() {
-  return [...jest.mocked(window.open).mock.results].pop()?.value
+  return [...vi.mocked(window.open).mock.results].pop()?.value
 }
