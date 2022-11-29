@@ -1,6 +1,7 @@
 // vite.config.js
 import { resolve } from 'path'
 import { defineConfig } from 'vite'
+import dts from 'vite-plugin-dts'
 
 export default defineConfig({
   build: {
@@ -24,4 +25,14 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
   },
+  plugins: [
+    dts({
+      skipDiagnostics: false,
+      insertTypesEntry: true,
+      libFolderPath: './node_modules/typescript/lib',
+      outputDir: ['types'],
+      include: ['./src/NewWindow.ts'],
+      exclude: ['node_modules'],
+    }),
+  ],
 })
