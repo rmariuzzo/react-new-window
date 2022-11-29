@@ -1,5 +1,3 @@
 node_modules
-es
-umd
-lib
+dist
 *.log
