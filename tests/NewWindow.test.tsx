@@ -1,12 +1,14 @@
 import './__mocks__/window.open.mock'
 
-import { vi } from 'vitest'
 import React from 'react'
-import NewWindow from './NewWindow'
+import { vi } from 'vitest'
 import { render, waitFor, within } from '@testing-library/react'
+import NewWindow from '../src/NewWindow'
 
 describe('NewWindow', () => {
-  beforeEach(vi.clearAllMocks)
+  beforeEach(() => {
+    vi.clearAllMocks()
+  })
 
   it('should render', () => {
     expect(() => render(<NewWindow />)).not.toThrow()
