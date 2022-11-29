@@ -31,7 +31,7 @@ export function copyStyles(source: Document, target: Document) {
       Object.values(rules).some((r) => r instanceof CSSFontFaceRule) &&
       styleSheet.href
 
-    if (rules) {
+    if (rules && !isFontFaceRule) {
       // IE11 is very slow for appendChild, so use plain string here
       const ruleText: string[] = []
 
