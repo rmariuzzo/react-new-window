@@ -13,7 +13,7 @@ declare module 'react-new-window' {
   export interface IWindowFeatures {
     height?: number
     width?: number
-    [i: string]: boolean | number | string
+    [i: string]: boolean | number | string | undefined
   }
 
   /**
