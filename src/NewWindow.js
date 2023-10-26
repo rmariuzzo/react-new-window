@@ -114,7 +114,6 @@ class NewWindow extends React.PureComponent {
 
     // Check if the new window was succesfully opened.
     if (this.window) {
-      this.container = this.window.document.createElement('div')
       this.window.document.title = title
 
       // Check if the container already exists as the window may have been already open
