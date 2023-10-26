@@ -47,7 +47,7 @@ class NewWindow extends React.PureComponent {
    * Render the NewWindow component.
    */
   render() {
-    if (!this.state.mounted) return null
+    if (!this.state.mounted || !this.container) return null
     return ReactDOM.createPortal(this.props.children, this.container)
   }
 
@@ -102,7 +102,7 @@ class NewWindow extends React.PureComponent {
 
     // Open a new window.
     this.window = window.open(url, name, toWindowFeatures(features))
-    this.container = this.window.document.createElement('div')
+
     // When a new window use content from a cross-origin there's no way we can attach event
     // to it. Therefore, we need to detect in a interval when the new window was destroyed
     // or was closed.
