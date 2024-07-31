@@ -71,11 +71,16 @@ declare module 'react-new-window' {
      * If specified, copy styles from parent window's document.
      */
     copyStyles?: boolean
-    
+
     /**
      * If specified, close the new window on unmount.
      */
     closeOnUnmount?: boolean
+
+    /**
+     * If specified, adds nonce to style elements.
+     */
+    nonce?: string | null
   }
 
   export default class NewWindow extends React.PureComponent<INewWindowProps> {

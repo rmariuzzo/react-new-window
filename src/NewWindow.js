@@ -25,7 +25,8 @@ class NewWindow extends React.PureComponent {
     onUnload: null,
     center: 'parent',
     copyStyles: true,
-    closeOnUnmount: true
+    closeOnUnmount: true,
+    nonce: null
   }
 
   /**
@@ -134,7 +135,7 @@ class NewWindow extends React.PureComponent {
 
       // If specified, copy styles from parent window's document.
       if (this.props.copyStyles) {
-        setTimeout(() => copyStyles(document, this.window.document), 0)
+        setTimeout(() => copyStyles(document, this.window.document, this.props.nonce), 0)
       }
 
       if (typeof onOpen === 'function') {
@@ -206,7 +207,8 @@ NewWindow.propTypes = {
   onOpen: PropTypes.func,
   center: PropTypes.oneOf(['parent', 'screen']),
   copyStyles: PropTypes.bool,
-  closeOnUnmount: PropTypes.bool
+  closeOnUnmount: PropTypes.bool,
+  nonce: PropTypes.string
 }
 
 /**
@@ -221,7 +223,7 @@ NewWindow.propTypes = {
  * @private
  */
 
-function copyStyles(source, target) {
+function copyStyles(source, target, nonce) {
   // Store style tags, avoid reflow in the loop
   const headFrag = target.createDocumentFragment()
 
@@ -275,6 +277,7 @@ function copyStyles(source, target) {
 
       const newStyleEl = target.createElement('style')
       newStyleEl.textContent = ruleText.join('\n')
+      if (nonce) newStyleEl.setAttribute('nonce', nonce);
       headFrag.appendChild(newStyleEl)
     } else if (styleSheet.href) {
       // for <link> elements loading CSS from a URL
@@ -282,6 +285,7 @@ function copyStyles(source, target) {
 
       newLinkEl.rel = 'stylesheet'
       newLinkEl.href = styleSheet.href
+      if (nonce) newLinkEl.setAttribute('nonce', nonce);
       headFrag.appendChild(newLinkEl)
     }
   })
