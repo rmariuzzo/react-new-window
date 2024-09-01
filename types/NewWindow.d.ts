@@ -47,13 +47,14 @@ declare module 'react-new-window' {
      */
     features?: IWindowFeatures
 
+
     /**
-     * A function to be triggered before the new window unload.
+     * A function to be triggered when the new window could not be opened.
      */
     onBlock?: EventHandler | null
 
     /**
-     * A function to be triggered when the new window could not be opened.
+     * A function to be triggered before the new window unload.
      */
     onUnload?: EventHandler | null
 
